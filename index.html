@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Shift Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 flex justify-center text-slate-800">
+
+    <div class="max-w-6xl w-full">
+        
+        <!-- Header Section -->
+        <header class="mb-8 text-center md:text-left flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b border-slate-200 pb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Shift Dashboard</h1>
+                <p class="text-slate-500 text-sm mt-1">Production Support Roster</p>
+            </div>
+            
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                <!-- View Toggles -->
+                <div class="bg-slate-200 p-1 rounded-lg inline-flex self-center sm:self-auto">
+                    <button id="btn-daily" onclick="setView('daily')" class="px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all">Daily</button>
+                    <button id="btn-monthly" onclick="setView('monthly')" class="px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all">Monthly</button>
+                </div>
+                
+                <div class="relative flex items-center gap-2" id="date-picker-container">
+                    <label for="date-picker" class="sr-only">Select Date</label>
+                    <input type="date" id="date-picker" 
+                        class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400">
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="content" class="space-y-6 min-h-[300px] pb-12">
+            <!-- Loading Placeholder -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 text-center animate-pulse">
+                <div class="h-4 bg-slate-200 rounded w-3/4 mx-auto mb-4"></div>
+                <div class="h-4 bg-slate-200 rounded w-1/2 mx-auto"></div>
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        const myName = "Shoaib Akhtar";
+        
+        // Cache to store loaded months so we don't fetch them multiple times
+        let monthlyDataCache = {}; 
+        let currentLoadedData = {}; 
+        let currentView = 'daily';
+        let currentDate = ''; // YYYY-MM-DD format
+
+        const shiftStyles = {
+            "6 AM - 3 PM IST": { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", icon: "🌅" },
+            "2 PM - 11 PM IST": { bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-700", icon: "🌤️" },
+            "10 PM - 7 AM IST": { bg: "bg-indigo-50", border: "border-indigo-200", text: "text-indigo-700", icon: "🌙" },
+            "WO": { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", icon: "🌴" },
+            "Leave": { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-700", icon: "🤒" },
+            "Holiday": { bg: "bg-purple-50", border: "border-purple-200", text: "text-purple-700", icon: "🎉" },
+            "FH": { bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", icon: "🏖️" },
+            "CO": { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", icon: "⏱️" }
+        };
+        
+        const shiftOrder = [
+            "6 AM - 3 PM IST",
+            "2 PM - 11 PM IST",
+            "10 PM - 7 AM IST",
+            "FH",
+            "Holiday",
+            "CO",
+            "WO",
+            "Leave"
+        ];
+
+        const defaultStyle = { bg: "bg-slate-50", border: "border-slate-200", text: "text-slate-700", icon: "📋" };
+
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        function formatName(name) {
+            return name.replace(/\\s*\\(Self Commute\\)/gi, '').trim();
+        }
+
+        // Initialize App
+        async function init() {
+            currentDate = new Date().toLocaleDateString('en-CA');
+            const datePicker = document.getElementById('date-picker');
+            datePicker.value = currentDate;
+            
+            await loadDataForDate(currentDate);
+
+            datePicker.addEventListener('change', async (e) => {
+                const newDate = e.target.value;
+                const prevMonthYear = currentDate.substring(0, 7); // YYYY-MM
+                const newMonthYear = newDate.substring(0, 7);
+                
+                currentDate = newDate;
+                
+                // If they picked a date in a different month/year, load that file
+                if (prevMonthYear !== newMonthYear) {
+                    await loadDataForDate(currentDate);
+                } else if (currentView === 'daily') {
+                    renderDailyView();
+                } else {
+                    renderMonthlyView();
+                }
+            });
+        }
+
+        // Dynamically fetch data based on Year and Month (e.g., 2026/Aug.json)
+        async function loadDataForDate(dateStr) {
+            const dateObj = new Date(dateStr + 'T00:00:00');
+            const year = dateObj.getFullYear();
+            const monthName = monthNames[dateObj.getMonth()];
+            
+            const filePath = `${year}/${monthName}.json`;
+            const cacheKey = `${year}-${monthName}`;
+
+            if (monthlyDataCache[cacheKey]) {
+                currentLoadedData = monthlyDataCache[cacheKey];
+                updateViews();
+                return;
+            }
+
+            try {
+                // Show loading state
+                document.getElementById('content').innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 text-center animate-pulse">
+                        <div class="h-4 bg-slate-200 rounded w-3/4 mx-auto mb-4"></div>
+                        <div class="h-4 bg-slate-200 rounded w-1/2 mx-auto"></div>
+                    </div>`;
+
+                const response = await fetch(filePath); 
+                if (!response.ok) throw new Error("File not found");
+                
+                const data = await response.json();
+                monthlyDataCache[cacheKey] = data;
+                currentLoadedData = data;
+                updateViews();
+
+            } catch (error) {
+                currentLoadedData = {}; // Clear data if file doesn't exist
+                document.getElementById('content').innerHTML = `
+                    <div class="bg-slate-50 border border-slate-200 text-slate-600 px-4 py-10 rounded-2xl text-center max-w-3xl mx-auto shadow-sm">
+                        <svg class="w-10 h-10 mx-auto text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v10a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 14h6"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11v6"></path></svg>
+                        <p class="font-semibold text-lg text-slate-800">No Roster Data Found</p>
+                        <p class="text-sm mt-1">Make sure you have uploaded the file to: <br><strong class="bg-white px-2 py-0.5 rounded border border-slate-200 text-blue-600 mt-2 inline-block">${filePath}</strong></p>
+                    </div>`;
+            }
+        }
+
+        function updateViews() {
+            if (currentView === 'daily') renderDailyView();
+            else renderMonthlyView();
+        }
+
+        function setView(view) {
+            currentView = view;
+            
+            const btnDaily = document.getElementById('btn-daily');
+            const btnMonthly = document.getElementById('btn-monthly');
+
+            if (view === 'daily') {
+                btnDaily.className = "px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all";
+                btnMonthly.className = "px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all";
+                renderDailyView();
+            } else {
+                btnMonthly.className = "px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all";
+                btnDaily.className = "px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all";
+                renderMonthlyView();
+            }
+        }
+
+        function renderDailyView() {
+            if (Object.keys(currentLoadedData).length === 0) return; // Error message already shown
+
+            const dayData = currentLoadedData[currentDate];
+            const contentDiv = document.getElementById('content');
+            
+            if (!dayData) {
+                contentDiv.innerHTML = `
+                    <div class="bg-white border border-slate-200 text-slate-500 px-4 py-8 rounded-2xl shadow-sm text-center max-w-3xl mx-auto">
+                        <p>No shift assignments found for this exact date.</p>
+                    </div>`;
+                return;
+            }
+
+            let myShift = "Not Found / Leave";
+            let validShifts = Object.keys(dayData).filter(k => isNaN(k)); 
+
+            validShifts.sort((a, b) => {
+                let indexA = shiftOrder.indexOf(a);
+                let indexB = shiftOrder.indexOf(b);
+                if (indexA === -1) indexA = 99;
+                if (indexB === -1) indexB = 99;
+                return indexA - indexB;
+            });
+
+            for (const shift of validShifts) {
+                if (dayData[shift].includes(myName)) {
+                    myShift = shift;
+                    break;
+                }
+            }
+
+            const style = shiftStyles[myShift] || defaultStyle;
+            let html = `<div class="max-w-3xl mx-auto">`;
+
+            html += `
+                <div class="${style.bg} border ${style.border} rounded-2xl p-6 md:p-8 shadow-sm transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4 border-b ${style.border} pb-4">
+                        <h2 class="text-lg font-semibold ${style.text} flex items-center gap-2">
+                            <span>${style.icon}</span> My Status Today
+                        </h2>
+                    </div>
+                    
+                    <div class="text-3xl md:text-4xl font-extrabold ${style.text} mb-6 tracking-tight">
+                        ${myShift}
+                    </div>
+            `;
+
+            const teammates = dayData[myShift] || [];
+
+            if (teammates.length > 1) {
+                html += `
+                    <h3 class="text-sm font-semibold uppercase tracking-wider ${style.text} opacity-80 mb-3">
+                        Team Sharing This Shift (${teammates.length})
+                    </h3>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                `;
+                
+                teammates.forEach(p => {
+                    html += `
+                        <li class="bg-white/60 border ${style.border} rounded-lg px-3 py-2 text-sm shadow-sm flex items-center text-slate-700 font-medium">
+                            <div class="w-2 h-2 rounded-full ${style.bg.replace('50', '400')} mr-2"></div>
+                            ${formatName(p)}
+                        </li>`;
+                });
+                html += `</ul>`;
+            } else if (teammates.length === 1) {
+               html += `<p class="text-sm opacity-80 font-medium ${style.text}">You are the only one assigned to this shift today.</p>`;
+            }
+            html += `</div>`;
+
+            html += `
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mt-6">
+                    <details class="group">
+                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-slate-800 hover:bg-slate-50 transition-colors">
+                            <span class="flex items-center gap-2 font-semibold">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                View Rest of the Team
+                            </span>
+                            <span class="transition group-open:rotate-180 text-slate-400">
+                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                            </span>
+                        </summary>
+                        
+                        <div class="px-6 pb-6 pt-2 border-t border-slate-100 bg-slate-50/50 space-y-6">
+            `;
+
+            for (const shift of validShifts) {
+                if (shift !== myShift) {
+                    const sStyle = shiftStyles[shift] || defaultStyle;
+                    const people = dayData[shift];
+                    
+                    html += `
+                        <div>
+                            <h3 class="text-sm font-bold uppercase tracking-wide text-slate-500 mb-3 flex items-center gap-2 border-b border-slate-200 pb-2">
+                                ${sStyle.icon} ${shift} <span class="bg-slate-200 text-slate-600 rounded-full px-2 py-0.5 text-xs ml-auto">${people.length}</span>
+                            </h3>
+                            <ul class="flex flex-wrap gap-2">
+                                ${people.map(p => `
+                                    <li class="bg-white border border-slate-200 text-slate-600 rounded-md px-3 py-1.5 text-sm shadow-sm hover:border-slate-300 transition-colors">
+                                        ${formatName(p)}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+            }
+            
+            html += `
+                        </div>
+                    </details>
+                </div>
+            </div>
+            `;
+
+            contentDiv.innerHTML = html;
+        }
+
+        function renderMonthlyView() {
+            if (Object.keys(currentLoadedData).length === 0) return;
+
+            const contentDiv = document.getElementById('content');
+            const sortedDates = Object.keys(currentLoadedData).sort();
+            
+            let html = `
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                        <h2 class="font-bold text-slate-800 text-lg">My Monthly Schedule</h2>
+                    </div>
+                    
+                    <div class="hidden lg:grid grid-cols-7 gap-px bg-slate-200">
+                        ${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => `
+                            <div class="bg-slate-50 p-3 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                ${day}
+                            </div>
+                        `).join('')}
+            `;
+
+            if (sortedDates.length > 0) {
+                const firstDate = new Date(sortedDates[0] + 'T00:00:00');
+                const firstDayOfWeek = firstDate.getDay(); 
+                for (let i = 0; i < firstDayOfWeek; i++) {
+                    html += `<div class="bg-slate-50 min-h-[100px] p-2"></div>`;
+                }
+            }
+
+            for (const d of sortedDates) {
+                const dayData = currentLoadedData[d];
+                let myShift = "Not Found / Leave";
+                const validShifts = Object.keys(dayData).filter(k => isNaN(k));
+
+                for (const shift of validShifts) {
+                    if (dayData[shift].includes(myName)) {
+                        myShift = shift;
+                        break;
+                    }
+                }
+
+                const style = shiftStyles[myShift] || defaultStyle;
+                const dateObj = new Date(d + 'T00:00:00');
+                const dayNum = dateObj.getDate();
+                const isToday = d === currentDate;
+                const todayStyles = isToday ? 'ring-2 ring-blue-500 ring-inset bg-blue-50/30' : 'bg-white';
+
+                html += `
+                    <div class="${todayStyles} min-h-[100px] p-3 flex flex-col hover:bg-slate-50 transition-colors">
+                        <span class="text-sm font-semibold text-slate-700 mb-2 ${isToday ? 'text-blue-600' : ''}">${dayNum}</span>
+                        <div class="mt-auto inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-semibold ${style.bg} ${style.text} border ${style.border} shadow-sm max-w-full overflow-hidden whitespace-nowrap text-ellipsis" title="${myShift}">
+                            ${style.icon} <span class="truncate">${myShift}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (sortedDates.length > 0) {
+                const lastDate = new Date(sortedDates[sortedDates.length - 1] + 'T00:00:00');
+                const lastDayOfWeek = lastDate.getDay();
+                for (let i = lastDayOfWeek; i < 6; i++) {
+                    html += `<div class="bg-slate-50 min-h-[100px] p-2"></div>`;
+                }
+            }
+
+            html += `</div>`; 
+
+            // Mobile List View
+            html += `
+                    <div class="lg:hidden divide-y divide-slate-100">
+            `;
+
+            for (const d of sortedDates) {
+                const dayData = currentLoadedData[d];
+                let myShift = "Not Found / Leave";
+                const validShifts = Object.keys(dayData).filter(k => isNaN(k));
+
+                for (const shift of validShifts) {
+                    if (dayData[shift].includes(myName)) {
+                        myShift = shift;
+                        break;
+                    }
+                }
+
+                const style = shiftStyles[myShift] || defaultStyle;
+                const dateObj = new Date(d + 'T00:00:00');
+                const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+                const monthDay = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                
+                const isWeekend = (dateObj.getDay() === 0 || dateObj.getDay() === 6);
+                const rowBg = isWeekend ? 'bg-slate-50/50' : 'bg-white';
+                const isToday = d === currentDate;
+                const todayStyles = isToday ? 'border-l-4 border-l-blue-500 bg-blue-50/20' : 'border-l-4 border-l-transparent';
+
+                html += `
+                    <div class="${rowBg} ${todayStyles} p-4 flex justify-between items-center hover:bg-slate-50 transition-colors">
+                        <div>
+                            <div class="font-semibold text-slate-700">${monthDay}</div>
+                            <div class="text-xs text-slate-400 font-medium">${dayName}</div>
+                        </div>
+                        <div>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold ${style.bg} ${style.text} border ${style.border} shadow-sm">
+                                ${style.icon} ${myShift}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            contentDiv.innerHTML = html;
+        }
+
+        // Start App
+        init();
+    </script>
+</body>
+</html>
