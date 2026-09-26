@@ -77,14 +77,13 @@
     </div>
 
     <script>
-        let selectedUser = "Shoaib Akhtar"; // Default user
+        let selectedUser = "Shoaib Akhtar"; 
         
         let monthlyDataCache = {}; 
         let currentLoadedData = {}; 
         let currentView = 'daily';
         let currentDate = ''; 
 
-        // Added styling for WFO, WFH, and CO.
         const shiftStyles = {
             "6 AM - 3 PM IST": { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", icon: "🌅" },
             "2 PM - 11 PM IST": { bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-700", icon: "🌤️" },
@@ -93,9 +92,7 @@
             "Leave": { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-700", icon: "🤒" },
             "Holiday": { bg: "bg-purple-50", border: "border-purple-200", text: "text-purple-700", icon: "🎉" },
             "FH": { bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", icon: "🏖️" },
-            "CO": { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", icon: "⏱️" },
-            "WFO": { bg: "bg-green-50", border: "border-green-200", text: "text-green-700", icon: "🏢" },
-            "WFH": { bg: "bg-fuchsia-50", border: "border-fuchsia-200", text: "text-fuchsia-700", icon: "🏠" }
+            "CO": { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", icon: "⏱️" }
         };
         
         const shiftOrder = [
@@ -107,22 +104,30 @@
         const defaultStyle = { bg: "bg-slate-50", border: "border-slate-200", text: "text-slate-700", icon: "📋" };
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+        // Parses out the WFO/WFH tag if present
         function formatName(name) {
-            return name.replace(/\s*\(Self Commute\)/gi, '').trim();
+            return name.split('|')[0].replace(/\s*\(Self Commute\)/gi, '').trim();
         }
 
-        function getStatusBadge(status, baseShift) {
-            if (status === baseShift) return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-green-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-green-700 ring-1 ring-inset ring-green-600/20">Office</span>';
-            if (status === 'WFH') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-purple-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-700 ring-1 ring-inset ring-purple-700/10">WFH</span>';
-            if (status === 'WFO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-green-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-green-700 ring-1 ring-inset ring-green-600/20">WFO</span>';
-            if (status === 'WO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-emerald-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 ring-1 ring-inset ring-emerald-600/20">WO</span>';
-            if (status === 'Leave') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-rose-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-rose-700 ring-1 ring-inset ring-rose-600/20">Leave</span>';
-            if (status === 'CO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-orange-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-orange-700 ring-1 ring-inset ring-orange-600/20">CO</span>';
-            if (status === 'FH') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-cyan-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-cyan-700 ring-1 ring-inset ring-cyan-600/20">FH</span>';
-            if (status === 'Holiday') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-pink-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-pink-700 ring-1 ring-inset ring-pink-600/20">Holiday</span>';
-            if (status === 'Not Scheduled') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-slate-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 ring-1 ring-inset ring-slate-500/20">N/A</span>';
+        // Extracts WFO or WFH from the JSON string
+        function getLocation(name) {
+            const parts = name.split('|');
+            return parts.length > 1 ? parts[1].trim() : null;
+        }
+
+        function getStatusBadge(statusObj) {
+            if (statusObj.location === 'WFO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-green-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-green-700 ring-1 ring-inset ring-green-600/20">WFO</span>';
+            if (statusObj.location === 'WFH') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-purple-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-700 ring-1 ring-inset ring-purple-700/10">WFH</span>';
             
-            return `<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-blue-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 ring-1 ring-inset ring-blue-700/10 truncate max-w-[80px]" title="${status}">${status}</span>`;
+            const s = statusObj.shift;
+            if (s === 'WO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-emerald-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 ring-1 ring-inset ring-emerald-600/20">WO</span>';
+            if (s === 'Leave') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-rose-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-rose-700 ring-1 ring-inset ring-rose-600/20">Leave</span>';
+            if (s === 'CO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-orange-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-orange-700 ring-1 ring-inset ring-orange-600/20">CO</span>';
+            if (s === 'FH') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-cyan-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-cyan-700 ring-1 ring-inset ring-cyan-600/20">FH</span>';
+            if (s === 'Holiday') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-pink-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-pink-700 ring-1 ring-inset ring-pink-600/20">Holiday</span>';
+            if (s === 'Not Scheduled') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-slate-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 ring-1 ring-inset ring-slate-500/20">N/A</span>';
+            
+            return `<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-blue-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 ring-1 ring-inset ring-blue-700/10 truncate max-w-[80px]" title="${s}">${s}</span>`;
         }
 
         function populateUserDropdown(data) {
@@ -131,12 +136,12 @@
                 const dayData = data[date];
                 for (const shift in dayData) {
                     if (isNaN(shift)) {
-                        dayData[shift].forEach(name => usersSet.add(name));
+                        dayData[shift].forEach(name => usersSet.add(formatName(name)));
                     }
                 }
             }
             
-            const usersArray = Array.from(usersSet).sort((a, b) => formatName(a).localeCompare(formatName(b)));
+            const usersArray = Array.from(usersSet).sort((a, b) => a.localeCompare(b));
             const select = document.getElementById('user-select');
             select.innerHTML = '';
             
@@ -144,18 +149,17 @@
             usersArray.forEach(user => {
                 const option = document.createElement('option');
                 option.value = user;
-                option.textContent = formatName(user);
+                option.textContent = user;
                 
-                if (user === selectedUser || formatName(user) === selectedUser) {
+                if (user === selectedUser) {
                     option.selected = true;
-                    selectedUser = user;
                     found = true;
                 }
                 select.appendChild(option);
             });
             
             if (!found && usersArray.length > 0) {
-                const defaultMatch = usersArray.find(u => formatName(u) === "Shoaib Akhtar");
+                const defaultMatch = usersArray.find(u => u === "Shoaib Akhtar");
                 if (defaultMatch) {
                     selectedUser = defaultMatch;
                     select.value = defaultMatch;
@@ -168,28 +172,24 @@
 
         async function init() {
             currentDate = new Date().toLocaleDateString('en-CA');
-            
             const datePicker = document.getElementById('date-picker');
             const monthPicker = document.getElementById('month-picker');
             
-            // Sync initial values
             datePicker.value = currentDate;
             monthPicker.value = currentDate.substring(0, 7); 
             
             await loadDataForDate(currentDate);
 
-            // Handle standard date picker change
             datePicker.addEventListener('change', async (e) => {
                 const newDate = e.target.value;
-                monthPicker.value = newDate.substring(0, 7); // Keep month picker in sync
+                monthPicker.value = newDate.substring(0, 7);
                 await handleDateChange(newDate);
             });
 
-            // Handle month picker change
             monthPicker.addEventListener('change', async (e) => {
                 const newMonth = e.target.value;
-                const newDate = `${newMonth}-01`; // Default to the 1st of the newly selected month
-                datePicker.value = newDate; // Keep date picker in sync
+                const newDate = `${newMonth}-01`;
+                datePicker.value = newDate;
                 await handleDateChange(newDate);
             });
 
@@ -202,7 +202,6 @@
         async function handleDateChange(newDate) {
             const prevMonthYear = currentDate.substring(0, 7); 
             const newMonthYear = newDate.substring(0, 7);
-            
             currentDate = newDate;
             
             if (prevMonthYear !== newMonthYear) {
@@ -216,7 +215,6 @@
             const dateObj = new Date(dateStr + 'T00:00:00');
             const year = dateObj.getFullYear();
             const monthName = monthNames[dateObj.getMonth()];
-            
             const filePath = `${year}/${monthName}.json`;
             const cacheKey = `${year}-${monthName}`;
 
@@ -263,7 +261,6 @@
 
         function setView(view) {
             currentView = view;
-            
             const btnDaily = document.getElementById('btn-daily');
             const btnMonthly = document.getElementById('btn-monthly');
             const datePickerContainer = document.getElementById('date-picker-container');
@@ -272,20 +269,14 @@
             if (view === 'daily') {
                 btnDaily.className = "px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all";
                 btnMonthly.className = "px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all";
-                
-                // Show date picker, hide month picker
                 datePickerContainer.style.display = "flex";
                 monthPickerContainer.style.display = "none";
-                
                 renderDailyView();
             } else {
                 btnMonthly.className = "px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all";
                 btnDaily.className = "px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all";
-                
-                // Show month picker, hide date picker
                 datePickerContainer.style.display = "none";
                 monthPickerContainer.style.display = "flex";
-                
                 renderMonthlyView();
             }
         }
@@ -304,11 +295,10 @@
                 return;
             }
 
-            // --- 1. Compute Base Shifts dynamically for the whole month ---
             const baseShifts = {};
             const usersSet = new Set();
             const shiftCounts = {};
-            const overrideStatuses = ['WO', 'Leave', 'Holiday', 'FH', 'CO', 'WFH', 'WFO'];
+            const overrideStatuses = ['WO', 'Leave', 'Holiday', 'FH', 'CO']; 
 
             for (const d in currentLoadedData) {
                 for (const shift in currentLoadedData[d]) {
@@ -340,14 +330,16 @@
             function getStatusToday(user) {
                 for (const shift in dayData) {
                     if (isNaN(shift)) {
-                        if (dayData[shift].map(formatName).includes(user)) return shift;
+                        const match = dayData[shift].find(raw => formatName(raw) === user);
+                        if (match) return { shift: shift, location: getLocation(match) };
                     }
                 }
-                return "Not Scheduled";
+                return { shift: "Not Scheduled", location: null };
             }
 
-            // --- 2. Render UI ---
-            let myActualStatus = getStatusToday(selectedUser);
+            let todayData = getStatusToday(selectedUser);
+            let myActualStatus = todayData.shift;
+            let myLocationBadge = todayData.location;
             let myBaseShift = baseShifts[selectedUser] || "Unknown Shift";
             
             const style = shiftStyles[myActualStatus] || defaultStyle;
@@ -361,8 +353,9 @@
                         </h2>
                     </div>
                     
-                    <div class="text-3xl md:text-4xl font-extrabold ${style.text} tracking-tight">
+                    <div class="text-3xl md:text-4xl font-extrabold ${style.text} tracking-tight flex items-center flex-wrap gap-3">
                         ${myActualStatus}
+                        ${myLocationBadge ? `<span class="text-sm px-3 py-1 rounded-lg font-bold shadow-sm ${myLocationBadge === 'WFO' ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700'} uppercase tracking-wider">${myLocationBadge}</span>` : ''}
                     </div>
                     <div class="text-sm font-medium ${style.text} opacity-80 mt-2 mb-6">
                         Base Shift: ${myBaseShift}
@@ -371,11 +364,17 @@
 
             let myShiftTeam = Array.from(usersSet).filter(u => baseShifts[u] === myBaseShift && u !== selectedUser);
 
-            // Sort so working people show first
             myShiftTeam.sort((a, b) => {
                 const statA = getStatusToday(a);
                 const statB = getStatusToday(b);
-                const rank = (s) => s === myBaseShift || s === 'WFO' ? 0 : (s === 'WFH' ? 1 : 2);
+                const rank = (stat) => {
+                    if (stat.shift === myBaseShift) {
+                        if (stat.location === 'WFO') return 0;
+                        if (stat.location === 'WFH') return 1;
+                        return 2;
+                    }
+                    return 3;
+                };
                 return rank(statA) - rank(statB);
             });
 
@@ -388,13 +387,14 @@
                 `;
                 
                 myShiftTeam.forEach(p => {
-                    const pStatus = getStatusToday(p);
-                    const badge = getStatusBadge(pStatus, myBaseShift);
-                    const dimClass = overrideStatuses.includes(pStatus) && pStatus !== 'WFH' && pStatus !== 'WFO' ? 'opacity-70 bg-white/50' : 'bg-white/90 shadow-sm';
+                    const statObj = getStatusToday(p);
+                    const badge = getStatusBadge(statObj);
+                    const dimClass = overrideStatuses.includes(statObj.shift) ? 'opacity-70 bg-white/50' : 'bg-white/90 shadow-sm';
+                    const activeDot = (statObj.shift === myBaseShift && statObj.location === 'WFO') ? 'bg-green-500' : 'bg-slate-300';
                     
                     html += `
                         <li class="${dimClass} border ${style.border} rounded-lg px-3 py-2 text-sm flex items-center text-slate-800 font-medium">
-                            <div class="w-2 h-2 rounded-full ${pStatus === myBaseShift || pStatus === 'WFO' ? 'bg-green-500' : 'bg-slate-300'} mr-2.5 shrink-0"></div>
+                            <div class="w-2 h-2 rounded-full ${activeDot} mr-2.5 shrink-0"></div>
                             <span class="truncate pr-2">${p}</span>
                             ${badge}
                         </li>`;
@@ -405,7 +405,6 @@
             }
             html += `</div>`;
 
-            // 3. Render rest of the team grouped by Base Shift
             const otherShifts = Array.from(new Set(Object.values(baseShifts)))
                 .filter(s => s !== myBaseShift && s !== "Other");
             
@@ -436,7 +435,14 @@
                 teamMembers.sort((a, b) => {
                     const statA = getStatusToday(a);
                     const statB = getStatusToday(b);
-                    const rank = (s) => s === shift || s === 'WFO' ? 0 : (s === 'WFH' ? 1 : 2);
+                    const rank = (stat) => {
+                        if (stat.shift === shift) {
+                            if (stat.location === 'WFO') return 0;
+                            if (stat.location === 'WFH') return 1;
+                            return 2;
+                        }
+                        return 3;
+                    };
                     return rank(statA) - rank(statB);
                 });
                 
@@ -447,12 +453,14 @@
                         </h3>
                         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                             ${teamMembers.map(p => {
-                                const pStatus = getStatusToday(p);
-                                const badge = getStatusBadge(pStatus, shift);
-                                const dimClass = overrideStatuses.includes(pStatus) && pStatus !== 'WFH' && pStatus !== 'WFO' ? 'opacity-70 bg-slate-50' : 'bg-white shadow-sm hover:border-slate-300 transition-colors';
+                                const statObj = getStatusToday(p);
+                                const badge = getStatusBadge(statObj);
+                                const dimClass = overrideStatuses.includes(statObj.shift) ? 'opacity-70 bg-slate-50' : 'bg-white shadow-sm hover:border-slate-300 transition-colors';
+                                const activeDot = (statObj.shift === shift && statObj.location === 'WFO') ? 'bg-green-400' : 'bg-slate-300';
+                                
                                 return `
                                 <li class="${dimClass} border border-slate-200 rounded-lg px-3 py-2.5 text-sm flex items-center text-slate-700">
-                                    <div class="w-2 h-2 rounded-full ${pStatus === shift || pStatus === 'WFO' ? 'bg-green-400' : 'bg-slate-300'} mr-2.5 shrink-0"></div>
+                                    <div class="w-2 h-2 rounded-full ${activeDot} mr-2.5 shrink-0"></div>
                                     <span class="truncate pr-2">${p}</span>${badge}
                                 </li>`;
                             }).join('')}
@@ -476,12 +484,11 @@
 
             const contentDiv = document.getElementById('content');
             const sortedDates = Object.keys(currentLoadedData).sort();
-            const displayName = formatName(selectedUser);
             
             let html = `
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="p-6 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                        <h2 class="font-bold text-slate-800 text-lg">${displayName}'s Monthly Schedule</h2>
+                        <h2 class="font-bold text-slate-800 text-lg">${selectedUser}'s Monthly Schedule</h2>
                     </div>
                     
                     <div class="hidden lg:grid grid-cols-7 gap-px bg-slate-200">
@@ -503,11 +510,14 @@
             for (const d of sortedDates) {
                 const dayData = currentLoadedData[d];
                 let myShift = "Not Found / Leave";
+                let myLocation = null;
                 const validShifts = Object.keys(dayData).filter(k => isNaN(k));
 
                 for (const shift of validShifts) {
-                    if (dayData[shift].includes(selectedUser)) {
+                    const assignedMatch = dayData[shift].find(n => formatName(n) === selectedUser);
+                    if (assignedMatch) {
                         myShift = shift;
+                        myLocation = getLocation(assignedMatch);
                         break;
                     }
                 }
@@ -517,12 +527,19 @@
                 const dayNum = dateObj.getDate();
                 const isToday = d === currentDate;
                 const todayStyles = isToday ? 'ring-2 ring-blue-500 ring-inset bg-blue-50/30' : 'bg-white';
+                
+                const locationBadgeStyle = myLocation === 'WFO' 
+                    ? 'bg-green-100 text-green-700 ring-1 ring-green-600/20' 
+                    : 'bg-purple-100 text-purple-700 ring-1 ring-purple-600/20';
 
                 html += `
                     <div class="${todayStyles} min-h-[100px] p-3 flex flex-col hover:bg-slate-50 transition-colors">
                         <span class="text-sm font-semibold text-slate-700 mb-2 ${isToday ? 'text-blue-600' : ''}">${dayNum}</span>
-                        <div class="mt-auto inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-semibold ${style.bg} ${style.text} border ${style.border} shadow-sm max-w-full overflow-hidden whitespace-nowrap text-ellipsis" title="${myShift}">
-                            ${style.icon} <span class="truncate">${myShift}</span>
+                        <div class="mt-auto flex flex-col gap-1.5">
+                            <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-semibold ${style.bg} ${style.text} border ${style.border} shadow-sm max-w-full overflow-hidden whitespace-nowrap text-ellipsis" title="${myShift}">
+                                ${style.icon} <span class="truncate">${myShift}</span>
+                            </div>
+                            ${myLocation ? `<div class="inline-flex items-center justify-center px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wider ${locationBadgeStyle}">${myLocation}</div>` : ''}
                         </div>
                     </div>
                 `;
@@ -539,18 +556,19 @@
             html += `</div>`; 
 
             // Mobile List View
-            html += `
-                    <div class="lg:hidden divide-y divide-slate-100">
-            `;
+            html += `<div class="lg:hidden divide-y divide-slate-100">`;
 
             for (const d of sortedDates) {
                 const dayData = currentLoadedData[d];
                 let myShift = "Not Found / Leave";
+                let myLocation = null;
                 const validShifts = Object.keys(dayData).filter(k => isNaN(k));
 
                 for (const shift of validShifts) {
-                    if (dayData[shift].includes(selectedUser)) {
+                    const assignedMatch = dayData[shift].find(n => formatName(n) === selectedUser);
+                    if (assignedMatch) {
                         myShift = shift;
+                        myLocation = getLocation(assignedMatch);
                         break;
                     }
                 }
@@ -559,11 +577,14 @@
                 const dateObj = new Date(d + 'T00:00:00');
                 const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
                 const monthDay = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                
                 const isWeekend = (dateObj.getDay() === 0 || dateObj.getDay() === 6);
                 const rowBg = isWeekend ? 'bg-slate-50/50' : 'bg-white';
                 const isToday = d === currentDate;
                 const todayStyles = isToday ? 'border-l-4 border-l-blue-500 bg-blue-50/20' : 'border-l-4 border-l-transparent';
+                
+                const locationBadgeStyle = myLocation === 'WFO' 
+                    ? 'bg-green-100 text-green-700 ring-1 ring-green-600/20' 
+                    : 'bg-purple-100 text-purple-700 ring-1 ring-purple-600/20';
 
                 html += `
                     <div class="${rowBg} ${todayStyles} p-4 flex justify-between items-center hover:bg-slate-50 transition-colors">
@@ -571,7 +592,8 @@
                             <div class="font-semibold text-slate-700">${monthDay}</div>
                             <div class="text-xs text-slate-400 font-medium">${dayName}</div>
                         </div>
-                        <div>
+                        <div class="flex items-center gap-2">
+                            ${myLocation ? `<div class="inline-flex items-center justify-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${locationBadgeStyle}">${myLocation}</div>` : ''}
                             <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold ${style.bg} ${style.text} border ${style.border} shadow-sm">
                                 ${style.icon} ${myShift}
                             </span>
@@ -588,7 +610,6 @@
             contentDiv.innerHTML = html;
         }
 
-        // Start App
         init();
     </script>
 </body>
