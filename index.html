@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HB | L1 Roster
-    </title>
+    <title>HB | L1 Roster</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -28,8 +27,7 @@
         <!-- Header Section -->
         <header class="mb-8 text-center md:text-left flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b border-slate-200 pb-6">
             <div>
-                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">L1 Roster</h1>
-                <p class="text-slate-500 text-sm mt-1">HB</p>
+                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">L1 Monthly Roster</h1>
             </div>
             
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap justify-end">
@@ -51,10 +49,17 @@
                     <button id="btn-monthly" onclick="setView('monthly')" class="px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all">Monthly</button>
                 </div>
                 
-                <!-- Date Picker -->
+                <!-- Date Picker (Daily View) -->
                 <div class="relative flex items-center w-full sm:w-auto" id="date-picker-container">
                     <label for="date-picker" class="sr-only">Select Date</label>
                     <input type="date" id="date-picker" 
+                        class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-medium">
+                </div>
+
+                <!-- Month Picker (Monthly View) -->
+                <div class="relative flex items-center w-full sm:w-auto" id="month-picker-container" style="display: none;">
+                    <label for="month-picker" class="sr-only">Select Month</label>
+                    <input type="month" id="month-picker" 
                         class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-medium">
                 </div>
             </div>
@@ -79,6 +84,7 @@
         let currentView = 'daily';
         let currentDate = ''; 
 
+        // Added styling for WFO, WFH, and CO.
         const shiftStyles = {
             "6 AM - 3 PM IST": { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", icon: "🌅" },
             "2 PM - 11 PM IST": { bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-700", icon: "🌤️" },
@@ -87,7 +93,9 @@
             "Leave": { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-700", icon: "🤒" },
             "Holiday": { bg: "bg-purple-50", border: "border-purple-200", text: "text-purple-700", icon: "🎉" },
             "FH": { bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", icon: "🏖️" },
-            "CO": { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", icon: "⏱️" }
+            "CO": { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", icon: "⏱️" },
+            "WFO": { bg: "bg-green-50", border: "border-green-200", text: "text-green-700", icon: "🏢" },
+            "WFH": { bg: "bg-fuchsia-50", border: "border-fuchsia-200", text: "text-fuchsia-700", icon: "🏠" }
         };
         
         const shiftOrder = [
@@ -103,10 +111,10 @@
             return name.replace(/\s*\(Self Commute\)/gi, '').trim();
         }
 
-        // Returns dynamic badges based on daily status
         function getStatusBadge(status, baseShift) {
             if (status === baseShift) return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-green-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-green-700 ring-1 ring-inset ring-green-600/20">Office</span>';
             if (status === 'WFH') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-purple-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-700 ring-1 ring-inset ring-purple-700/10">WFH</span>';
+            if (status === 'WFO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-green-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-green-700 ring-1 ring-inset ring-green-600/20">WFO</span>';
             if (status === 'WO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-emerald-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 ring-1 ring-inset ring-emerald-600/20">WO</span>';
             if (status === 'Leave') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-rose-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-rose-700 ring-1 ring-inset ring-rose-600/20">Leave</span>';
             if (status === 'CO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-orange-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-orange-700 ring-1 ring-inset ring-orange-600/20">CO</span>';
@@ -114,7 +122,6 @@
             if (status === 'Holiday') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-pink-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-pink-700 ring-1 ring-inset ring-pink-600/20">Holiday</span>';
             if (status === 'Not Scheduled') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-slate-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 ring-1 ring-inset ring-slate-500/20">N/A</span>';
             
-            // If they are covering a completely different shift
             return `<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-blue-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 ring-1 ring-inset ring-blue-700/10 truncate max-w-[80px]" title="${status}">${status}</span>`;
         }
 
@@ -161,29 +168,48 @@
 
         async function init() {
             currentDate = new Date().toLocaleDateString('en-CA');
+            
             const datePicker = document.getElementById('date-picker');
+            const monthPicker = document.getElementById('month-picker');
+            
+            // Sync initial values
             datePicker.value = currentDate;
+            monthPicker.value = currentDate.substring(0, 7); 
             
             await loadDataForDate(currentDate);
 
+            // Handle standard date picker change
             datePicker.addEventListener('change', async (e) => {
                 const newDate = e.target.value;
-                const prevMonthYear = currentDate.substring(0, 7); 
-                const newMonthYear = newDate.substring(0, 7);
-                
-                currentDate = newDate;
-                
-                if (prevMonthYear !== newMonthYear) {
-                    await loadDataForDate(currentDate);
-                } else {
-                    updateViews();
-                }
+                monthPicker.value = newDate.substring(0, 7); // Keep month picker in sync
+                await handleDateChange(newDate);
+            });
+
+            // Handle month picker change
+            monthPicker.addEventListener('change', async (e) => {
+                const newMonth = e.target.value;
+                const newDate = `${newMonth}-01`; // Default to the 1st of the newly selected month
+                datePicker.value = newDate; // Keep date picker in sync
+                await handleDateChange(newDate);
             });
 
             document.getElementById('user-select').addEventListener('change', (e) => {
                 selectedUser = e.target.value;
                 updateViews();
             });
+        }
+
+        async function handleDateChange(newDate) {
+            const prevMonthYear = currentDate.substring(0, 7); 
+            const newMonthYear = newDate.substring(0, 7);
+            
+            currentDate = newDate;
+            
+            if (prevMonthYear !== newMonthYear) {
+                await loadDataForDate(currentDate);
+            } else {
+                updateViews();
+            }
         }
 
         async function loadDataForDate(dateStr) {
@@ -241,16 +267,25 @@
             const btnDaily = document.getElementById('btn-daily');
             const btnMonthly = document.getElementById('btn-monthly');
             const datePickerContainer = document.getElementById('date-picker-container');
+            const monthPickerContainer = document.getElementById('month-picker-container');
 
             if (view === 'daily') {
                 btnDaily.className = "px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all";
                 btnMonthly.className = "px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all";
+                
+                // Show date picker, hide month picker
                 datePickerContainer.style.display = "flex";
+                monthPickerContainer.style.display = "none";
+                
                 renderDailyView();
             } else {
                 btnMonthly.className = "px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all";
                 btnDaily.className = "px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all";
+                
+                // Show month picker, hide date picker
                 datePickerContainer.style.display = "none";
+                monthPickerContainer.style.display = "flex";
+                
                 renderMonthlyView();
             }
         }
@@ -273,7 +308,7 @@
             const baseShifts = {};
             const usersSet = new Set();
             const shiftCounts = {};
-            const overrideStatuses = ['WO', 'Leave', 'Holiday', 'FH', 'CO', 'WFH'];
+            const overrideStatuses = ['WO', 'Leave', 'Holiday', 'FH', 'CO', 'WFH', 'WFO'];
 
             for (const d in currentLoadedData) {
                 for (const shift in currentLoadedData[d]) {
@@ -340,7 +375,7 @@
             myShiftTeam.sort((a, b) => {
                 const statA = getStatusToday(a);
                 const statB = getStatusToday(b);
-                const rank = (s) => s === myBaseShift ? 0 : (s === 'WFH' ? 1 : 2);
+                const rank = (s) => s === myBaseShift || s === 'WFO' ? 0 : (s === 'WFH' ? 1 : 2);
                 return rank(statA) - rank(statB);
             });
 
@@ -355,11 +390,11 @@
                 myShiftTeam.forEach(p => {
                     const pStatus = getStatusToday(p);
                     const badge = getStatusBadge(pStatus, myBaseShift);
-                    const dimClass = overrideStatuses.includes(pStatus) && pStatus !== 'WFH' ? 'opacity-70 bg-white/50' : 'bg-white/90 shadow-sm';
+                    const dimClass = overrideStatuses.includes(pStatus) && pStatus !== 'WFH' && pStatus !== 'WFO' ? 'opacity-70 bg-white/50' : 'bg-white/90 shadow-sm';
                     
                     html += `
                         <li class="${dimClass} border ${style.border} rounded-lg px-3 py-2 text-sm flex items-center text-slate-800 font-medium">
-                            <div class="w-2 h-2 rounded-full ${pStatus === myBaseShift ? 'bg-green-500' : 'bg-slate-300'} mr-2.5 shrink-0"></div>
+                            <div class="w-2 h-2 rounded-full ${pStatus === myBaseShift || pStatus === 'WFO' ? 'bg-green-500' : 'bg-slate-300'} mr-2.5 shrink-0"></div>
                             <span class="truncate pr-2">${p}</span>
                             ${badge}
                         </li>`;
@@ -401,7 +436,7 @@
                 teamMembers.sort((a, b) => {
                     const statA = getStatusToday(a);
                     const statB = getStatusToday(b);
-                    const rank = (s) => s === shift ? 0 : (s === 'WFH' ? 1 : 2);
+                    const rank = (s) => s === shift || s === 'WFO' ? 0 : (s === 'WFH' ? 1 : 2);
                     return rank(statA) - rank(statB);
                 });
                 
@@ -414,10 +449,10 @@
                             ${teamMembers.map(p => {
                                 const pStatus = getStatusToday(p);
                                 const badge = getStatusBadge(pStatus, shift);
-                                const dimClass = overrideStatuses.includes(pStatus) && pStatus !== 'WFH' ? 'opacity-70 bg-slate-50' : 'bg-white shadow-sm hover:border-slate-300 transition-colors';
+                                const dimClass = overrideStatuses.includes(pStatus) && pStatus !== 'WFH' && pStatus !== 'WFO' ? 'opacity-70 bg-slate-50' : 'bg-white shadow-sm hover:border-slate-300 transition-colors';
                                 return `
                                 <li class="${dimClass} border border-slate-200 rounded-lg px-3 py-2.5 text-sm flex items-center text-slate-700">
-                                    <div class="w-2 h-2 rounded-full ${pStatus === shift ? 'bg-green-400' : 'bg-slate-300'} mr-2.5 shrink-0"></div>
+                                    <div class="w-2 h-2 rounded-full ${pStatus === shift || pStatus === 'WFO' ? 'bg-green-400' : 'bg-slate-300'} mr-2.5 shrink-0"></div>
                                     <span class="truncate pr-2">${p}</span>${badge}
                                 </li>`;
                             }).join('')}
