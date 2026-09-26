@@ -1,0 +1,983 @@
+{
+  "2026-10-01": {
+    "WO": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Yash Chauhan",
+      "Rahul Satish Talele",
+      "Neha Rawat",
+      "Rahul Sureshrao Kamdi",
+      "Om Raosaheb Sadaphal",
+      "Niyati Saran"
+    ],
+    "6 AM - 3 PM IST": [
+      "Anmol Kumar Anil Yadav",
+      "Paras Khurana",
+      "Ifat Makki"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Thushara R",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Sachin Gangwar",
+      "Mujahid Hussain"
+    ]
+  },
+  "2026-10-02": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Yash Chauhan"
+    ],
+    "Holiday": [
+      "Anmol Kumar Anil Yadav",
+      "Paras Khurana",
+      "Ifat Makki",
+      "Durgesh Patil",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Mujahid Hussain"
+    ],
+    "2 PM - 11 PM IST": [
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Neha Rawat",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Pratik Bhikan Wagh",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-03": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Yash Chauhan"
+    ],
+    "WO": [
+      "Avinash Wani",
+      "Ifat Makki",
+      "Nupoor Tryambak Aher",
+      "Shoaib Akhtar",
+      "Pratik Bhikan Wagh",
+      "Sachin Gangwar"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-04": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Anmol Kumar Anil Yadav",
+      "Samiksha Haridas Kolte",
+      "Shoaib Akhtar",
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Sachin Gangwar"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Pratik Bhikan Wagh",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-05": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Anmol Kumar Anil Yadav",
+      "Yash Chauhan",
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula"
+    ],
+    "2 PM - 11 PM IST": [
+      "Nupoor Tryambak Aher",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Neha Rawat",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Pratik Bhikan Wagh",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-06": {
+    "WO": [
+      "Samyak Jain",
+      "Yash Chauhan",
+      "Durgesh Patil",
+      "Neha Rawat",
+      "Srinaresh Yellavula",
+      "Mujahid Hussain"
+    ],
+    "6 AM - 3 PM IST": [
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Ifat Makki"
+    ],
+    "2 PM - 11 PM IST": [
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-07": {
+    "WO": [
+      "Samyak Jain",
+      "Paras Khurana",
+      "Rahul Satish Talele",
+      "Neha Rawat",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain"
+    ],
+    "6 AM - 3 PM IST": [
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Thushara R",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Sachin Gangwar",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-08": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Om Raosaheb Sadaphal",
+      "Niyati Saran"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Neha Rawat",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Sachin Gangwar",
+      "Mujahid Hussain"
+    ]
+  },
+  "2026-10-09": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Yash Chauhan"
+    ],
+    "WO": [
+      "Ashish Chourasia",
+      "Ifat Makki",
+      "Nupoor Tryambak Aher",
+      "Thushara R",
+      "Pratik Bhikan Wagh"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Neha Rawat",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-10": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Yash Chauhan"
+    ],
+    "WO": [
+      "Avinash Wani",
+      "Ifat Makki",
+      "Nupoor Tryambak Aher",
+      "Shoaib Akhtar",
+      "Pratik Bhikan Wagh",
+      "Sachin Gangwar"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-11": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Samiksha Haridas Kolte",
+      "Shoaib Akhtar",
+      "Rahul Sureshrao Kamdi",
+      "Sachin Gangwar"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-12": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Anmol Kumar Anil Yadav",
+      "Yash Chauhan",
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula"
+    ],
+    "2 PM - 11 PM IST": [
+      "Nupoor Tryambak Aher",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Neha Rawat",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Pratik Bhikan Wagh",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-13": {
+    "WO": [
+      "Samyak Jain",
+      "Yash Chauhan",
+      "Durgesh Patil",
+      "Neha Rawat",
+      "Srinaresh Yellavula",
+      "Mujahid Hussain"
+    ],
+    "6 AM - 3 PM IST": [
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Ifat Makki"
+    ],
+    "2 PM - 11 PM IST": [
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-14": {
+    "WO": [
+      "Samyak Jain",
+      "Paras Khurana",
+      "Rahul Satish Talele",
+      "Neha Rawat",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain"
+    ],
+    "6 AM - 3 PM IST": [
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Thushara R",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Sachin Gangwar",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-15": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Shoaib Akhtar"
+    ],
+    "Leave": [
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Sachin Gangwar"
+    ]
+  },
+  "2026-10-16": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Yash Chauhan"
+    ],
+    "WO": [
+      "Ashish Chourasia",
+      "Ifat Makki",
+      "Nupoor Tryambak Aher",
+      "Thushara R",
+      "Pratik Bhikan Wagh",
+      "Niyati Saran"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Shoaib Akhtar"
+    ],
+    "Leave": [
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Mujahid Hussain"
+    ]
+  },
+  "2026-10-17": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Yash Chauhan"
+    ],
+    "WO": [
+      "Avinash Wani",
+      "Ifat Makki",
+      "Nupoor Tryambak Aher",
+      "Shoaib Akhtar",
+      "Pratik Bhikan Wagh",
+      "Sachin Gangwar"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Thushara R"
+    ],
+    "Leave": [
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-18": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Samiksha Haridas Kolte",
+      "Shoaib Akhtar",
+      "Rahul Sureshrao Kamdi",
+      "Sachin Gangwar"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Rahul Satish Talele",
+      "Thushara R"
+    ],
+    "Leave": [
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-19": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Anmol Kumar Anil Yadav",
+      "Yash Chauhan",
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula"
+    ],
+    "2 PM - 11 PM IST": [
+      "Nupoor Tryambak Aher",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Shoaib Akhtar"
+    ],
+    "Leave": [
+      "Neha Rawat",
+      "Sachin Gangwar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Pratik Bhikan Wagh",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-20": {
+    "WO": [
+      "Samyak Jain",
+      "Yash Chauhan",
+      "Durgesh Patil",
+      "Neha Rawat",
+      "Srinaresh Yellavula"
+    ],
+    "6 AM - 3 PM IST": [
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Ifat Makki"
+    ],
+    "2 PM - 11 PM IST": [
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Shoaib Akhtar"
+    ],
+    "F H": [
+      "Thushara R",
+      "Niyati Saran"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain"
+    ],
+    "Leave": [
+      "Sachin Gangwar"
+    ]
+  },
+  "2026-10-21": {
+    "WO": [
+      "Samyak Jain",
+      "Paras Khurana",
+      "Rahul Satish Talele",
+      "Neha Rawat",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain"
+    ],
+    "6 AM - 3 PM IST": [
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Shoaib Akhtar"
+    ],
+    "F H": [
+      "Thushara R",
+      "Niyati Saran"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Sachin Gangwar"
+    ]
+  },
+  "2026-10-22": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Neha Rawat",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Sachin Gangwar"
+    ]
+  },
+  "2026-10-23": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Yash Chauhan"
+    ],
+    "WO": [
+      "Ashish Chourasia",
+      "Ifat Makki",
+      "Nupoor Tryambak Aher",
+      "Thushara R",
+      "Pratik Bhikan Wagh",
+      "Niyati Saran"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Neha Rawat",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Mujahid Hussain"
+    ]
+  },
+  "2026-10-24": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Yash Chauhan"
+    ],
+    "WO": [
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Ifat Makki",
+      "Nupoor Tryambak Aher",
+      "Shoaib Akhtar",
+      "Pratik Bhikan Wagh",
+      "Sachin Gangwar"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-25": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Samiksha Haridas Kolte",
+      "Shoaib Akhtar",
+      "Rahul Sureshrao Kamdi",
+      "Sachin Gangwar"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-26": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Anmol Kumar Anil Yadav",
+      "Yash Chauhan",
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula"
+    ],
+    "2 PM - 11 PM IST": [
+      "Nupoor Tryambak Aher",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Neha Rawat"
+    ],
+    "F H": [
+      "Shoaib Akhtar",
+      "Niyati Saran"
+    ],
+    "10 PM - 7 AM IST": [
+      "Pratik Bhikan Wagh",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Mujahid Hussain"
+    ]
+  },
+  "2026-10-27": {
+    "WO": [
+      "Samyak Jain",
+      "Yash Chauhan",
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Neha Rawat",
+      "Srinaresh Yellavula",
+      "Mujahid Hussain"
+    ],
+    "6 AM - 3 PM IST": [
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Paras Khurana",
+      "Ifat Makki"
+    ],
+    "2 PM - 11 PM IST": [
+      "Nupoor Tryambak Aher",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-28": {
+    "WO": [
+      "Samyak Jain",
+      "Paras Khurana",
+      "Durgesh Patil",
+      "Rahul Satish Talele",
+      "Neha Rawat",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain"
+    ],
+    "6 AM - 3 PM IST": [
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Avinash Wani",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "2 PM - 11 PM IST": [
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Thushara R",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Sachin Gangwar",
+      "Niyati Saran"
+    ]
+  },
+  "2026-10-29": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Yash Chauhan",
+      "Ifat Makki"
+    ],
+    "WO": [
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Rahul Satish Talele",
+      "Thushara R",
+      "Om Raosaheb Sadaphal",
+      "Niyati Saran"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Nupoor Tryambak Aher",
+      "Samiksha Haridas Kolte",
+      "Neha Rawat"
+    ],
+    "F H": [
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Pratik Bhikan Wagh",
+      "Srinaresh Yellavula",
+      "Sachin Gangwar",
+      "Mujahid Hussain"
+    ]
+  },
+  "2026-10-30": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Avinash Wani",
+      "Yash Chauhan"
+    ],
+    "WO": [
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Ifat Makki",
+      "Nupoor Tryambak Aher",
+      "Thushara R",
+      "Pratik Bhikan Wagh",
+      "Niyati Saran"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Neha Rawat",
+      "Shoaib Akhtar"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Sachin Gangwar",
+      "Mujahid Hussain"
+    ]
+  },
+  "2026-10-31": {
+    "6 AM - 3 PM IST": [
+      "Samyak Jain",
+      "Anmol Kumar Anil Yadav",
+      "Ashish Chourasia",
+      "Paras Khurana",
+      "Yash Chauhan"
+    ],
+    "WO": [
+      "Avinash Wani",
+      "Ifat Makki",
+      "Nupoor Tryambak Aher",
+      "Thushara R",
+      "Shoaib Akhtar",
+      "Pratik Bhikan Wagh",
+      "Sachin Gangwar",
+      "Niyati Saran"
+    ],
+    "2 PM - 11 PM IST": [
+      "Durgesh Patil",
+      "Samiksha Haridas Kolte",
+      "Rahul Satish Talele",
+      "Neha Rawat"
+    ],
+    "10 PM - 7 AM IST": [
+      "Rahul Sureshrao Kamdi",
+      "Srinaresh Yellavula",
+      "Om Raosaheb Sadaphal",
+      "Mujahid Hussain"
+    ]
+  }
+}
