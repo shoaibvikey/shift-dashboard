@@ -31,17 +31,30 @@
                 <p class="text-slate-500 text-sm mt-1">Production Support Roster</p>
             </div>
             
-            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap justify-end">
+                
+                <!-- Team Member Selector -->
+                <div class="relative flex items-center w-full sm:w-auto">
+                    <label for="user-select" class="sr-only">Select Team Member</label>
+                    <select id="user-select" class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:w-56 p-2 pr-8 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-semibold appearance-none">
+                        <option>Loading team...</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+
                 <!-- View Toggles -->
-                <div class="bg-slate-200 p-1 rounded-lg inline-flex self-center sm:self-auto">
+                <div class="bg-slate-200 p-1 rounded-lg inline-flex self-center sm:self-auto shrink-0">
                     <button id="btn-daily" onclick="setView('daily')" class="px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all">Daily</button>
                     <button id="btn-monthly" onclick="setView('monthly')" class="px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all">Monthly</button>
                 </div>
                 
-                <div class="relative flex items-center gap-2" id="date-picker-container">
+                <!-- Date Picker -->
+                <div class="relative flex items-center w-full sm:w-auto" id="date-picker-container">
                     <label for="date-picker" class="sr-only">Select Date</label>
                     <input type="date" id="date-picker" 
-                        class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400">
+                        class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-medium">
                 </div>
             </div>
         </header>
@@ -58,13 +71,12 @@
     </div>
 
     <script>
-        const myName = "Shoaib Akhtar";
+        let selectedUser = "Shoaib Akhtar"; // Default user
         
-        // Cache to store loaded months so we don't fetch them multiple times
         let monthlyDataCache = {}; 
         let currentLoadedData = {}; 
         let currentView = 'daily';
-        let currentDate = ''; // YYYY-MM-DD format
+        let currentDate = ''; 
 
         const shiftStyles = {
             "6 AM - 3 PM IST": { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", icon: "🌅" },
@@ -89,14 +101,56 @@
         ];
 
         const defaultStyle = { bg: "bg-slate-50", border: "border-slate-200", text: "text-slate-700", icon: "📋" };
-
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
         function formatName(name) {
-            return name.replace(/\\s*\\(Self Commute\\)/gi, '').trim();
+            return name.replace(/\s*\(Self Commute\)/gi, '').trim();
         }
 
-        // Initialize App
+        // Extract unique users and build the dropdown menu
+        function populateUserDropdown(data) {
+            const usersSet = new Set();
+            for (const date in data) {
+                const dayData = data[date];
+                for (const shift in dayData) {
+                    if (isNaN(shift)) {
+                        dayData[shift].forEach(name => usersSet.add(name));
+                    }
+                }
+            }
+            
+            const usersArray = Array.from(usersSet).sort((a, b) => formatName(a).localeCompare(formatName(b)));
+            const select = document.getElementById('user-select');
+            select.innerHTML = '';
+            
+            let found = false;
+            usersArray.forEach(user => {
+                const option = document.createElement('option');
+                option.value = user;
+                option.textContent = formatName(user);
+                
+                // Keep the same person selected when changing months if they exist
+                if (user === selectedUser || formatName(user) === selectedUser) {
+                    option.selected = true;
+                    selectedUser = user;
+                    found = true;
+                }
+                select.appendChild(option);
+            });
+            
+            // If previous selection isn't in this month's data, try to default to Shoaib Akhtar, else pick the first person
+            if (!found && usersArray.length > 0) {
+                const defaultMatch = usersArray.find(u => formatName(u) === "Shoaib Akhtar");
+                if (defaultMatch) {
+                    selectedUser = defaultMatch;
+                    select.value = defaultMatch;
+                } else {
+                    selectedUser = usersArray[0];
+                    select.value = usersArray[0];
+                }
+            }
+        }
+
         async function init() {
             currentDate = new Date().toLocaleDateString('en-CA');
             const datePicker = document.getElementById('date-picker');
@@ -104,25 +158,28 @@
             
             await loadDataForDate(currentDate);
 
+            // Date picker listener
             datePicker.addEventListener('change', async (e) => {
                 const newDate = e.target.value;
-                const prevMonthYear = currentDate.substring(0, 7); // YYYY-MM
+                const prevMonthYear = currentDate.substring(0, 7); 
                 const newMonthYear = newDate.substring(0, 7);
                 
                 currentDate = newDate;
                 
-                // If they picked a date in a different month/year, load that file
                 if (prevMonthYear !== newMonthYear) {
                     await loadDataForDate(currentDate);
-                } else if (currentView === 'daily') {
-                    renderDailyView();
                 } else {
-                    renderMonthlyView();
+                    updateViews();
                 }
+            });
+
+            // User dropdown listener
+            document.getElementById('user-select').addEventListener('change', (e) => {
+                selectedUser = e.target.value;
+                updateViews();
             });
         }
 
-        // Dynamically fetch data based on Year and Month (e.g., 2026/Aug.json)
         async function loadDataForDate(dateStr) {
             const dateObj = new Date(dateStr + 'T00:00:00');
             const year = dateObj.getFullYear();
@@ -133,12 +190,12 @@
 
             if (monthlyDataCache[cacheKey]) {
                 currentLoadedData = monthlyDataCache[cacheKey];
+                populateUserDropdown(currentLoadedData);
                 updateViews();
                 return;
             }
 
             try {
-                // Show loading state
                 document.getElementById('content').innerHTML = `
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 text-center animate-pulse">
                         <div class="h-4 bg-slate-200 rounded w-3/4 mx-auto mb-4"></div>
@@ -151,10 +208,13 @@
                 const data = await response.json();
                 monthlyDataCache[cacheKey] = data;
                 currentLoadedData = data;
+                
+                populateUserDropdown(currentLoadedData);
                 updateViews();
 
             } catch (error) {
-                currentLoadedData = {}; // Clear data if file doesn't exist
+                currentLoadedData = {}; 
+                document.getElementById('user-select').innerHTML = '<option>No data available</option>';
                 document.getElementById('content').innerHTML = `
                     <div class="bg-slate-50 border border-slate-200 text-slate-600 px-4 py-10 rounded-2xl text-center max-w-3xl mx-auto shadow-sm">
                         <svg class="w-10 h-10 mx-auto text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v10a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 14h6"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11v6"></path></svg>
@@ -187,7 +247,7 @@
         }
 
         function renderDailyView() {
-            if (Object.keys(currentLoadedData).length === 0) return; // Error message already shown
+            if (Object.keys(currentLoadedData).length === 0) return; 
 
             const dayData = currentLoadedData[currentDate];
             const contentDiv = document.getElementById('content');
@@ -212,7 +272,7 @@
             });
 
             for (const shift of validShifts) {
-                if (dayData[shift].includes(myName)) {
+                if (dayData[shift].includes(selectedUser)) {
                     myShift = shift;
                     break;
                 }
@@ -225,7 +285,7 @@
                 <div class="${style.bg} border ${style.border} rounded-2xl p-6 md:p-8 shadow-sm transition-all duration-300">
                     <div class="flex items-center justify-between mb-4 border-b ${style.border} pb-4">
                         <h2 class="text-lg font-semibold ${style.text} flex items-center gap-2">
-                            <span>${style.icon}</span> My Status Today
+                            <span>${style.icon}</span> Status Today
                         </h2>
                     </div>
                     
@@ -253,7 +313,7 @@
                 });
                 html += `</ul>`;
             } else if (teammates.length === 1) {
-               html += `<p class="text-sm opacity-80 font-medium ${style.text}">You are the only one assigned to this shift today.</p>`;
+               html += `<p class="text-sm opacity-80 font-medium ${style.text}">Assigned alone to this shift today.</p>`;
             }
             html += `</div>`;
 
@@ -312,11 +372,12 @@
 
             const contentDiv = document.getElementById('content');
             const sortedDates = Object.keys(currentLoadedData).sort();
+            const displayName = formatName(selectedUser);
             
             let html = `
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="p-6 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                        <h2 class="font-bold text-slate-800 text-lg">My Monthly Schedule</h2>
+                        <h2 class="font-bold text-slate-800 text-lg">${displayName}'s Monthly Schedule</h2>
                     </div>
                     
                     <div class="hidden lg:grid grid-cols-7 gap-px bg-slate-200">
@@ -341,7 +402,7 @@
                 const validShifts = Object.keys(dayData).filter(k => isNaN(k));
 
                 for (const shift of validShifts) {
-                    if (dayData[shift].includes(myName)) {
+                    if (dayData[shift].includes(selectedUser)) {
                         myShift = shift;
                         break;
                     }
@@ -384,7 +445,7 @@
                 const validShifts = Object.keys(dayData).filter(k => isNaN(k));
 
                 for (const shift of validShifts) {
-                    if (dayData[shift].includes(myName)) {
+                    if (dayData[shift].includes(selectedUser)) {
                         myShift = shift;
                         break;
                     }
