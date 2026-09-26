@@ -92,12 +92,7 @@
         const shiftOrder = [
             "6 AM - 3 PM IST",
             "2 PM - 11 PM IST",
-            "10 PM - 7 AM IST",
-            "FH",
-            "Holiday",
-            "CO",
-            "WO",
-            "Leave"
+            "10 PM - 7 AM IST"
         ];
 
         const defaultStyle = { bg: "bg-slate-50", border: "border-slate-200", text: "text-slate-700", icon: "📋" };
@@ -107,7 +102,21 @@
             return name.replace(/\s*\(Self Commute\)/gi, '').trim();
         }
 
-        // Extract unique users and build the dropdown menu
+        // Returns dynamic badges based on daily status
+        function getStatusBadge(status, baseShift) {
+            if (status === baseShift) return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-green-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-green-700 ring-1 ring-inset ring-green-600/20">Office</span>';
+            if (status === 'WFH') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-purple-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-700 ring-1 ring-inset ring-purple-700/10">WFH</span>';
+            if (status === 'WO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-emerald-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 ring-1 ring-inset ring-emerald-600/20">WO</span>';
+            if (status === 'Leave') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-rose-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-rose-700 ring-1 ring-inset ring-rose-600/20">Leave</span>';
+            if (status === 'CO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-orange-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-orange-700 ring-1 ring-inset ring-orange-600/20">CO</span>';
+            if (status === 'FH') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-cyan-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-cyan-700 ring-1 ring-inset ring-cyan-600/20">FH</span>';
+            if (status === 'Holiday') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-pink-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-pink-700 ring-1 ring-inset ring-pink-600/20">Holiday</span>';
+            if (status === 'Not Scheduled') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-slate-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 ring-1 ring-inset ring-slate-500/20">N/A</span>';
+            
+            // If they are covering a completely different shift
+            return `<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-blue-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 ring-1 ring-inset ring-blue-700/10 truncate max-w-[80px]" title="${status}">${status}</span>`;
+        }
+
         function populateUserDropdown(data) {
             const usersSet = new Set();
             for (const date in data) {
@@ -129,7 +138,6 @@
                 option.value = user;
                 option.textContent = formatName(user);
                 
-                // Keep the same person selected when changing months if they exist
                 if (user === selectedUser || formatName(user) === selectedUser) {
                     option.selected = true;
                     selectedUser = user;
@@ -138,7 +146,6 @@
                 select.appendChild(option);
             });
             
-            // If previous selection isn't in this month's data, try to default to Shoaib Akhtar, else pick the first person
             if (!found && usersArray.length > 0) {
                 const defaultMatch = usersArray.find(u => formatName(u) === "Shoaib Akhtar");
                 if (defaultMatch) {
@@ -158,7 +165,6 @@
             
             await loadDataForDate(currentDate);
 
-            // Date picker listener
             datePicker.addEventListener('change', async (e) => {
                 const newDate = e.target.value;
                 const prevMonthYear = currentDate.substring(0, 7); 
@@ -173,7 +179,6 @@
                 }
             });
 
-            // User dropdown listener
             document.getElementById('user-select').addEventListener('change', (e) => {
                 selectedUser = e.target.value;
                 updateViews();
@@ -234,14 +239,17 @@
             
             const btnDaily = document.getElementById('btn-daily');
             const btnMonthly = document.getElementById('btn-monthly');
+            const datePickerContainer = document.getElementById('date-picker-container');
 
             if (view === 'daily') {
                 btnDaily.className = "px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all";
                 btnMonthly.className = "px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all";
+                datePickerContainer.style.display = "flex";
                 renderDailyView();
             } else {
                 btnMonthly.className = "px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all";
                 btnDaily.className = "px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all";
+                datePickerContainer.style.display = "none";
                 renderMonthlyView();
             }
         }
@@ -260,25 +268,53 @@
                 return;
             }
 
-            let myShift = "Not Found / Leave";
-            let validShifts = Object.keys(dayData).filter(k => isNaN(k)); 
+            // --- 1. Compute Base Shifts dynamically for the whole month ---
+            const baseShifts = {};
+            const usersSet = new Set();
+            const shiftCounts = {};
+            const overrideStatuses = ['WO', 'Leave', 'Holiday', 'FH', 'CO', 'WFH'];
 
-            validShifts.sort((a, b) => {
-                let indexA = shiftOrder.indexOf(a);
-                let indexB = shiftOrder.indexOf(b);
-                if (indexA === -1) indexA = 99;
-                if (indexB === -1) indexB = 99;
-                return indexA - indexB;
-            });
-
-            for (const shift of validShifts) {
-                if (dayData[shift].includes(selectedUser)) {
-                    myShift = shift;
-                    break;
+            for (const d in currentLoadedData) {
+                for (const shift in currentLoadedData[d]) {
+                    if (isNaN(shift)) {
+                        currentLoadedData[d][shift].forEach(rawName => {
+                            const name = formatName(rawName);
+                            usersSet.add(name);
+                            if (!shiftCounts[name]) shiftCounts[name] = {};
+                            shiftCounts[name][shift] = (shiftCounts[name][shift] || 0) + 1;
+                        });
+                    }
                 }
             }
 
-            const style = shiftStyles[myShift] || defaultStyle;
+            for (const user of usersSet) {
+                let maxCount = 0;
+                let bShift = "Other";
+                for (const shift in shiftCounts[user]) {
+                    if (!overrideStatuses.includes(shift)) {
+                        if (shiftCounts[user][shift] > maxCount) {
+                            maxCount = shiftCounts[user][shift];
+                            bShift = shift;
+                        }
+                    }
+                }
+                baseShifts[user] = bShift;
+            }
+
+            function getStatusToday(user) {
+                for (const shift in dayData) {
+                    if (isNaN(shift)) {
+                        if (dayData[shift].map(formatName).includes(user)) return shift;
+                    }
+                }
+                return "Not Scheduled";
+            }
+
+            // --- 2. Render UI ---
+            let myActualStatus = getStatusToday(selectedUser);
+            let myBaseShift = baseShifts[selectedUser] || "Unknown Shift";
+            
+            const style = shiftStyles[myActualStatus] || defaultStyle;
             let html = `<div class="max-w-3xl mx-auto">`;
 
             html += `
@@ -289,33 +325,55 @@
                         </h2>
                     </div>
                     
-                    <div class="text-3xl md:text-4xl font-extrabold ${style.text} mb-6 tracking-tight">
-                        ${myShift}
+                    <div class="text-3xl md:text-4xl font-extrabold ${style.text} tracking-tight">
+                        ${myActualStatus}
+                    </div>
+                    <div class="text-sm font-medium ${style.text} opacity-80 mt-2 mb-6">
+                        Base Shift: ${myBaseShift}
                     </div>
             `;
 
-            const teammates = dayData[myShift] || [];
+            let myShiftTeam = Array.from(usersSet).filter(u => baseShifts[u] === myBaseShift && u !== selectedUser);
 
-            if (teammates.length > 1) {
+            // Sort so working people show first
+            myShiftTeam.sort((a, b) => {
+                const statA = getStatusToday(a);
+                const statB = getStatusToday(b);
+                const rank = (s) => s === myBaseShift ? 0 : (s === 'WFH' ? 1 : 2);
+                return rank(statA) - rank(statB);
+            });
+
+            if (myShiftTeam.length > 0) {
                 html += `
-                    <h3 class="text-sm font-semibold uppercase tracking-wider ${style.text} opacity-80 mb-3">
-                        Team Sharing This Shift (${teammates.length})
+                    <h3 class="text-xs font-bold uppercase tracking-wider ${style.text} opacity-80 mb-3">
+                        My Base Team (${myBaseShift})
                     </h3>
-                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 `;
                 
-                teammates.forEach(p => {
+                myShiftTeam.forEach(p => {
+                    const pStatus = getStatusToday(p);
+                    const badge = getStatusBadge(pStatus, myBaseShift);
+                    const dimClass = overrideStatuses.includes(pStatus) && pStatus !== 'WFH' ? 'opacity-70 bg-white/50' : 'bg-white/90 shadow-sm';
+                    
                     html += `
-                        <li class="bg-white/60 border ${style.border} rounded-lg px-3 py-2 text-sm shadow-sm flex items-center text-slate-700 font-medium">
-                            <div class="w-2 h-2 rounded-full ${style.bg.replace('50', '400')} mr-2"></div>
-                            ${formatName(p)}
+                        <li class="${dimClass} border ${style.border} rounded-lg px-3 py-2 text-sm flex items-center text-slate-800 font-medium">
+                            <div class="w-2 h-2 rounded-full ${pStatus === myBaseShift ? 'bg-green-500' : 'bg-slate-300'} mr-2.5 shrink-0"></div>
+                            <span class="truncate pr-2">${p}</span>
+                            ${badge}
                         </li>`;
                 });
                 html += `</ul>`;
-            } else if (teammates.length === 1) {
-               html += `<p class="text-sm opacity-80 font-medium ${style.text}">Assigned alone to this shift today.</p>`;
+            } else {
+               html += `<p class="text-sm opacity-80 font-medium ${style.text}">You are the only one in this base shift.</p>`;
             }
             html += `</div>`;
+
+            // 3. Render rest of the team grouped by Base Shift
+            const otherShifts = Array.from(new Set(Object.values(baseShifts)))
+                .filter(s => s !== myBaseShift && s !== "Other");
+            
+            otherShifts.sort((a,b) => shiftOrder.indexOf(a) - shiftOrder.indexOf(b));
 
             html += `
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mt-6">
@@ -335,26 +393,36 @@
                         <div class="px-6 pb-6 pt-2 border-t border-slate-100 bg-slate-50/50 space-y-6">
             `;
 
-            for (const shift of validShifts) {
-                if (shift !== myShift) {
-                    const sStyle = shiftStyles[shift] || defaultStyle;
-                    const people = dayData[shift];
-                    
-                    html += `
-                        <div>
-                            <h3 class="text-sm font-bold uppercase tracking-wide text-slate-500 mb-3 flex items-center gap-2 border-b border-slate-200 pb-2">
-                                ${sStyle.icon} ${shift} <span class="bg-slate-200 text-slate-600 rounded-full px-2 py-0.5 text-xs ml-auto">${people.length}</span>
-                            </h3>
-                            <ul class="flex flex-wrap gap-2">
-                                ${people.map(p => `
-                                    <li class="bg-white border border-slate-200 text-slate-600 rounded-md px-3 py-1.5 text-sm shadow-sm hover:border-slate-300 transition-colors">
-                                        ${formatName(p)}
-                                    </li>
-                                `).join('')}
-                            </ul>
-                        </div>
-                    `;
-                }
+            for (const shift of otherShifts) {
+                const sStyle = shiftStyles[shift] || defaultStyle;
+                const teamMembers = Array.from(usersSet).filter(u => baseShifts[u] === shift);
+                
+                teamMembers.sort((a, b) => {
+                    const statA = getStatusToday(a);
+                    const statB = getStatusToday(b);
+                    const rank = (s) => s === shift ? 0 : (s === 'WFH' ? 1 : 2);
+                    return rank(statA) - rank(statB);
+                });
+                
+                html += `
+                    <div>
+                        <h3 class="text-xs font-bold uppercase tracking-wide text-slate-500 mb-3 flex items-center gap-2 border-b border-slate-200 pb-2">
+                            ${sStyle.icon} ${shift} <span class="bg-slate-200 text-slate-600 rounded-full px-2 py-0.5 ml-auto">${teamMembers.length}</span>
+                        </h3>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            ${teamMembers.map(p => {
+                                const pStatus = getStatusToday(p);
+                                const badge = getStatusBadge(pStatus, shift);
+                                const dimClass = overrideStatuses.includes(pStatus) && pStatus !== 'WFH' ? 'opacity-70 bg-slate-50' : 'bg-white shadow-sm hover:border-slate-300 transition-colors';
+                                return `
+                                <li class="${dimClass} border border-slate-200 rounded-lg px-3 py-2.5 text-sm flex items-center text-slate-700">
+                                    <div class="w-2 h-2 rounded-full ${pStatus === shift ? 'bg-green-400' : 'bg-slate-300'} mr-2.5 shrink-0"></div>
+                                    <span class="truncate pr-2">${p}</span>${badge}
+                                </li>`;
+                            }).join('')}
+                        </ul>
+                    </div>
+                `;
             }
             
             html += `
