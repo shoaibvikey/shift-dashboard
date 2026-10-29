@@ -1,108 +1,85 @@
-📅 Daily Shift Dashboard
-A fast, responsive, and serverless static web dashboard built for Production Support teams to track daily and monthly shift rosters. Built purely with HTML, Vanilla JavaScript, and Tailwind CSS.
+# ShiftTracker
 
-This dashboard eliminates the need to scroll through complex Excel spreadsheets on your phone by providing a clean, app-like interface that dynamically loads shift data based on the selected date.
+ShiftTracker is a static, serverless team roster dashboard for viewing daily and monthly schedules. It runs in the browser with HTML, vanilla JavaScript, Tailwind CSS, and JSON roster files; it requires no backend or build step.
 
-✨ Features
-⚡ Serverless & Lightweight: No backend required. It runs entirely in the browser and fetches lightweight JSON files.
+## Features
 
-📱 Fully Responsive:
+- **Daily roster:** Shows each shift in its own color-coded card and places the selected member’s shift first. Cards summarize the on-shift, WFO, WFH, Pune, and Noida counts when the source roster includes the relevant tags.
+- **Monthly roster:** Switch between a selected member’s calendar/list and the full team’s shiftwise schedule. Shiftwise mode shows one selectable shift at a time and defaults to the selected member’s most common shift for the month.
+- **Daily shiftwise totals:** The team table includes per-day totals for on-shift members, Pune, Noida, WFH, and WFO. The selected member’s row is highlighted.
+- **Status summaries:** The individual monthly view shows counts for statuses such as WFO, WFH, WO, FH, leave, holidays, and CO.
+- **Responsive layout:** The header controls fit on one row on mobile. The monthly calendar adapts to smaller screens; the shiftwise table can be scrolled horizontally to reach every date.
+- **Light and dark themes:** The initial theme follows the device preference. The theme button switches themes, and the choice is saved in the current browser.
+- **Roster cleanup and sorting:** Names are normalized (including removal of `(Self Commute)`), and shift groups are ordered chronologically, followed by non-working statuses.
+- **Month caching:** Once loaded, a month’s JSON data is cached in memory for the current page session.
 
-Daily View: Shows each shift in its own card, puts the selected member's shift first, and summarizes team size, available WFO/WFH totals, and Pune/Noida counts.
+Pune/Noida counts rely on city tags in the roster data. When tags are missing, the dashboard indicates that city counts are unavailable or incomplete.
 
-Monthly View: Toggle between one person's calendar/list (defaults to Shoaib Akhtar) and the whole-team shiftwise roster. Shiftwise mode shows one selectable base shift at a time and defaults to the selected member's most common shift for that month.
+## Repository structure
 
-🌗 Dark Mode: Use the theme button in the header to switch themes. The dashboard follows your device theme on first visit and remembers your choice in this browser.
+Roster JSON files are stored by year and named with the first three letters of the month:
 
-🎨 Dynamic Theming: Shifts are color-coded (e.g., Morning is Amber, Evening is Blue, Night is Indigo, Offs are Emerald) with visual emoji indicators.
+```text
+shift-dashboard/
+├── index.html
+├── README.md
+└── 2026/
+    ├── Aug.json
+    ├── Sep.json
+    ├── Oct.json
+    └── Nov.json
+```
 
-📂 Smart Caching & Folder System: Organizes data by Year and Month (e.g., 2026/Sep.json). Once a month is loaded, it is cached in the browser for instant switching.
+Add future months to the matching year folder, for example `2027/Jan.json`. The dashboard uses the selected date or month to fetch the matching file.
 
-🧹 Auto-Formatting: Automatically cleans up roster anomalies (like stripping out (Self Commute) tags from teammate names).
+## Run locally
 
-⏱️ Logical Sorting: Displays shifts in chronological order (Morning ➔ Evening ➔ Night ➔ FH ➔ Holiday ➔ CO ➔ WO ➔ Leave).
-
-📁 Repository Structure
-To keep the dashboard fast and maintainable forever, data is split into folders by year.
-
-Plaintext
-your-repo-name/
-│
-├── index.html          # The entire application code (UI + Logic)
-│
-├── 2026/               # Year folder
-│   ├── Aug.json        # Data for August 2026
-│   ├── Sep.json        # Data for September 2026
-│
-└── 2027/               # Next year's folder
-    ├── Jan.json        # Data for January 2027
-🖥️ Preview Locally
-Run a static HTTP server from the repository folder, then open its local address in your browser. Opening `index.html` directly as a `file://` URL can prevent the browser from fetching the JSON roster files.
+Serve the repository over HTTP so the browser can fetch the JSON files:
 
 ```sh
 python3 -m http.server 8000
 ```
 
-Then visit [http://localhost:8000/](http://localhost:8000/).
+Then open [http://localhost:8000/](http://localhost:8000/) in a browser. Opening `index.html` directly as a `file://` URL may prevent roster data from loading.
 
-🚀 How to Deploy
-Create a new repository on GitHub and upload your index.html file.
+## Roster JSON format
 
-Create folders for the current year (e.g., 2026) and upload your month's .json file inside it (e.g., Sep.json).
+Each date is a `YYYY-MM-DD` key. Its value maps shift/status names to arrays of team members:
 
-Go to your repository Settings.
+```json
+{
+  "2026-11-01": {
+    "6 AM - 3 PM IST": [
+      "Yash Chauhan | WFO | Noida",
+      "Example Teammate | WFH | Pune"
+    ],
+    "WO": [
+      "Example Teammate | Pune"
+    ]
+  }
+}
+```
 
-Navigate to Pages in the left sidebar.
+Use `WFO` or `WFH` to identify work location and `Pune` or `Noida` to identify office city. Keep city tags on non-working assignments too when known. The dashboard recognizes statuses such as `WO`, `Leave`, `CO`, `FH`/`F H`, and `Holiday`.
 
-Under Build and deployment, select Deploy from a branch.
+## Monthly roster update workflow
 
-Select your main branch and click Save.
+1. Open the `Roster` sheet in the new Excel workbook and identify the row containing the schedule dates.
+2. Convert each employee’s daily assignment into the JSON structure above. Exclude totals and constraint rows.
+3. Format each date as `YYYY-MM-DD`, include the correct shift/status, and preserve WFO/WFH and Pune/Noida tags where available.
+4. Save the JSON file as `<Mon>.json`, such as `Dec.json`, under the correct year folder.
+5. Serve or deploy the updated repository. Select a date in that month to load the new roster.
 
-In a few minutes, your dashboard will be live at [https://yourusername.github.io/your-repo-name/](https://yourusername.github.io/your-repo-name/).
+## Deploy with GitHub Pages
 
-🔄 How to Update the Roster (Monthly Workflow)
-When you receive the new Excel Shift Roster for the upcoming month, you do not need to write any code. Just follow these steps:
+1. Push the repository to GitHub.
+2. In the repository, open **Settings → Pages**.
+3. Under **Build and deployment**, select **Deploy from a branch**, choose the `main` branch and `/ (root)` folder, then save.
+4. Open the published GitHub Pages URL after deployment completes.
 
-Step 1: Generate the JSON
-Upload the Excel file to your AI assistant (like Gemini) and paste this exact prompt:
+## Customization
 
-"I have attached my team's new shift schedule Excel file for this month. Please read the 'Roster' sheet and convert the schedule into a specific JSON format for my static web dashboard.
-
-Instructions for parsing:
-
-Identify the row containing the dates (usually around row 7 or 8) to use as the header.
-
-Parse the employee names and their daily shift assignments. Skip constraint/total rows at the bottom.
-
-Use the `Location` column for each employee's city. For working days, group the employee under their assigned shift and include both work mode and city in the name entry, such as `Samyak Jain | WFO | Pune` or `Shoaib Akhtar | WFH | Noida`. For non-working statuses, include the city tag, such as `Shoaib Akhtar | Noida`.
-
-Format all dates strictly as YYYY-MM-DD.
-
-Required JSON Output Structure:
-Build a single JSON object where each key is a date string. The value for each date must be another object where the keys are the distinct shift names (e.g., '6 AM - 3 PM IST', 'WO', 'FH') and the values are arrays of employee names assigned to that specific shift.
-
-Please output the final result strictly as raw JSON inside a code block."
-
-Step 2: Save the File
-Copy the JSON output generated by the AI.
-
-Save it as a new file named after the first three letters of the month (e.g., Oct.json, Nov.json).
-
-Upload it to the corresponding year folder in your GitHub repository (e.g., 2026/Oct.json).
-
-The dashboard will automatically detect the new month when you select a date in the calendar picker!
-
-⚙️ Customization
-If you need to tweak the dashboard for another user or add new shifts, you can easily modify the top of the <script> tag inside index.html:
-
-Change the Primary User:
-
-JavaScript
-const myName = "Your Name Here"; // Must match exactly how it appears in the Excel file
-Add or Modify Shift Colors & Icons:
-
-JavaScript
-const shiftStyles = {
-    "6 AM - 3 PM IST": { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", icon: "🌅" },
-    "New Custom Shift": { bg: "bg-teal-50", border: "border-teal-200", text: "text-teal-700", icon: "🚀" }
-};
+- Change the default selected team member by editing `selectedUser` near the start of the script in `index.html`.
+- Update shift names, colors, and icons in the `shiftStyles` object.
+- Add or adjust chronological shift ordering in `shiftOrder` and non-working status ordering in `nonWorkingShiftOrder`.
+- The page title and visible `ShiftTracker` heading are set in `index.html`.
