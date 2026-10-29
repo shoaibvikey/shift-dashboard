@@ -77,11 +77,102 @@
         html.dark [class~="border-orange-200"] { border-color: #c2410c; }
         html.dark [class~="text-orange-700"] { color: #fdba74; }
         html.dark [class~="bg-pink-50"] { background-color: #500724; }
+        html.dark [class~="border-pink-200"] { border-color: #9d174d; }
         html.dark [class~="text-pink-700"] { color: #f9a8d4; }
         html.dark [class~="bg-green-100"] { background-color: #064e3b; }
         html.dark [class~="text-green-700"] { color: #6ee7b7; }
         html.dark [class~="bg-purple-100"] { background-color: #581c87; }
         html.dark [class~="text-purple-700"] { color: #e9d5ff; }
+
+        .monthly-selected-row > th,
+        .monthly-selected-row > td { border-top: 2px solid #60a5fa; border-bottom: 2px solid #60a5fa; }
+        .monthly-selected-row > th:first-child { border-left: 4px solid #3b82f6; }
+        html.dark .monthly-selected-row > th,
+        html.dark .monthly-selected-row > td { border-top-color: #3b82f6; border-bottom-color: #3b82f6; }
+
+        :root {
+            --md-background: #f6f7fb;
+            --md-surface: #ffffff;
+            --md-surface-container: #eef0f7;
+            --md-outline: #c6c9d4;
+            --md-on-surface: #1a1b20;
+            --md-on-surface-variant: #5b5f6b;
+            --md-primary: #3159c9;
+            --md-primary-container: #dfe5ff;
+            --md-elevation-1: 0 1px 2px rgb(20 27 48 / 0.08), 0 1px 3px rgb(20 27 48 / 0.06);
+            --md-elevation-2: 0 2px 6px rgb(20 27 48 / 0.10), 0 1px 2px rgb(20 27 48 / 0.06);
+        }
+        html.dark {
+            --md-background: #111318;
+            --md-surface: #1b1c20;
+            --md-surface-container: #25272e;
+            --md-outline: #454852;
+            --md-on-surface: #e3e2e8;
+            --md-on-surface-variant: #c2c5d0;
+            --md-primary: #b8c4ff;
+            --md-primary-container: #293d7c;
+            --md-elevation-1: 0 1px 3px rgb(0 0 0 / 0.24);
+            --md-elevation-2: 0 4px 10px rgb(0 0 0 / 0.28);
+        }
+
+        body { background-color: var(--md-background); }
+        body.text-slate-800 { color: var(--md-on-surface); }
+        html.dark body { background-color: var(--md-background); color: var(--md-on-surface); }
+        body > div.max-w-6xl > header { border-color: var(--md-outline); }
+        body > div.max-w-6xl > header h1 { letter-spacing: -0.04em; }
+
+        #user-select,
+        #date-picker,
+        #month-picker,
+        #monthly-shift-select,
+        #theme-toggle {
+            min-height: 48px;
+            border-color: var(--md-outline);
+            border-radius: 12px;
+            background-color: var(--md-surface);
+            color: var(--md-on-surface);
+            box-shadow: var(--md-elevation-1);
+        }
+        #theme-toggle { width: 48px; height: 48px; border-radius: 16px; }
+        #user-select:focus,
+        #date-picker:focus,
+        #month-picker:focus,
+        #monthly-shift-select:focus,
+        #theme-toggle:focus-visible { outline: 3px solid rgb(49 89 201 / 0.22); outline-offset: 1px; }
+        #btn-daily,
+        #btn-monthly { border-radius: 999px; }
+        #btn-daily.bg-white,
+        #btn-monthly.bg-white {
+            border: 1px solid transparent;
+            background-color: var(--md-primary-container);
+            color: var(--md-primary);
+            box-shadow: none;
+        }
+        body > div.max-w-6xl > header > div > div.bg-slate-200 { border-radius: 999px; background-color: var(--md-surface-container); }
+
+        #content > div > div.grid > article,
+        #content > section {
+            border-radius: 20px;
+            box-shadow: var(--md-elevation-1);
+        }
+        #content [aria-label="Monthly roster view"] { border-radius: 999px; background-color: var(--md-surface-container); }
+        #content [aria-label="Monthly roster view"] button { border-radius: 999px; }
+        #content [aria-label="Monthly roster view"] button.bg-white { background-color: var(--md-primary-container); color: var(--md-primary); box-shadow: none; }
+        #content table th,
+        #content table td { border-color: var(--md-outline); }
+        #content table { background-color: var(--md-surface); }
+
+        html.dark #user-select,
+        html.dark #date-picker,
+        html.dark #month-picker,
+        html.dark #monthly-shift-select,
+        html.dark #theme-toggle { background-color: var(--md-surface); color: var(--md-on-surface); border-color: var(--md-outline); }
+        html.dark #btn-daily.bg-white,
+        html.dark #btn-monthly.bg-white,
+        html.dark #content [aria-label="Monthly roster view"] button.bg-white { background-color: var(--md-primary-container); color: var(--md-primary); }
+        html.dark body > div.max-w-6xl > header > div > div.bg-slate-200,
+        html.dark #content [aria-label="Monthly roster view"] { background-color: var(--md-surface-container); }
+        html.dark #content table { background-color: var(--md-surface); }
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex justify-center text-slate-800">
@@ -151,15 +242,19 @@
         let monthlyDataCache = {}; 
         let currentLoadedData = {}; 
         let currentView = 'daily';
+        let monthlyViewMode = 'person';
+        let monthlyShiftFilter = null;
         let currentDate = ''; 
 
         const shiftStyles = {
             "6 AM - 3 PM IST": { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", icon: "🌅" },
             "2 PM - 11 PM IST": { bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-700", icon: "🌤️" },
             "10 PM - 7 AM IST": { bg: "bg-indigo-50", border: "border-indigo-200", text: "text-indigo-700", icon: "🌙" },
-            "WO": { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", icon: "🌴" },
+            "WFO": { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", icon: "🏢" },
+            "WFH": { bg: "bg-purple-50", border: "border-purple-200", text: "text-purple-700", icon: "🏠" },
+            "WO": { bg: "bg-slate-100", border: "border-slate-300", text: "text-slate-600", icon: "🌴" },
             "Leave": { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-700", icon: "🤒" },
-            "Holiday": { bg: "bg-purple-50", border: "border-purple-200", text: "text-purple-700", icon: "🎉" },
+            "Holiday": { bg: "bg-pink-50", border: "border-pink-200", text: "text-pink-700", icon: "🎉" },
             "FH": { bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", icon: "🏖️" },
             "F H": { bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", icon: "🏖️" },
             "CO": { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", icon: "⏱️" }
@@ -251,7 +346,7 @@
             if (statusObj.location === 'WFH') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-purple-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-700 ring-1 ring-inset ring-purple-700/10">WFH</span>';
             
             const s = statusObj.shift;
-            if (s === 'WO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-emerald-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 ring-1 ring-inset ring-emerald-600/20">WO</span>';
+            if (s === 'WO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-slate-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-600 ring-1 ring-inset ring-slate-500/20">WO</span>';
             if (s === 'Leave') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-rose-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-rose-700 ring-1 ring-inset ring-rose-600/20">Leave</span>';
             if (s === 'CO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-orange-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-orange-700 ring-1 ring-inset ring-orange-600/20">CO</span>';
             if (s === 'FH' || s === 'F H') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-cyan-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-cyan-700 ring-1 ring-inset ring-cyan-600/20">FH</span>';
@@ -332,6 +427,7 @@
 
             document.getElementById('user-select').addEventListener('change', (e) => {
                 selectedUser = e.target.value;
+                monthlyShiftFilter = null;
                 updateViews();
             });
         }
@@ -342,6 +438,7 @@
             currentDate = newDate;
             
             if (prevMonthYear !== newMonthYear) {
+                monthlyShiftFilter = null;
                 await loadDataForDate(currentDate);
             } else {
                 updateViews();
@@ -394,6 +491,16 @@
         function updateViews() {
             if (currentView === 'daily') renderDailyView();
             else renderMonthlyView();
+        }
+
+        function setMonthlyMode(mode) {
+            monthlyViewMode = mode === 'shiftwise' ? 'shiftwise' : 'person';
+            renderMonthlyView();
+        }
+
+        function setMonthlyShiftFilter(shift) {
+            monthlyShiftFilter = shift || null;
+            renderMonthlyView();
         }
 
         function setView(view) {
@@ -515,7 +622,7 @@
                                 const cityBadge = member.city ? `<span class="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-600">${member.city}</span>` : '';
 
                                 return `
-                                    <li class="flex min-w-0 items-center gap-2 rounded-lg border ${style.border} bg-white/90 px-3 py-2.5 text-sm font-medium text-slate-800 shadow-sm">
+                                    <li class="flex min-w-0 items-center gap-2 px-1 py-2.5 text-sm font-medium text-slate-800">
                                         <span class="h-2 w-2 shrink-0 rounded-full ${dotClass}" aria-hidden="true"></span>
                                         <span class="min-w-0 flex-1 truncate">${member.name}</span>
                                         ${cityBadge}${badge}
@@ -539,130 +646,367 @@
 
             const contentDiv = document.getElementById('content');
             const sortedDates = Object.keys(currentLoadedData).sort();
-            
-            let html = `
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="p-6 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                        <h2 class="font-bold text-slate-800 text-lg">${selectedUser}'s Monthly Schedule</h2>
-                    </div>
-                    
-                    <div class="hidden lg:grid grid-cols-7 gap-px bg-slate-200">
-                        ${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => `
-                            <div class="bg-slate-50 p-3 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                ${day}
+            const teamByKey = new Map();
+            const assignmentsByDate = new Map();
+
+            for (const date of sortedDates) {
+                const assignments = new Map();
+                const dayData = currentLoadedData[date] || {};
+
+                for (const [shift, rawMembers] of Object.entries(dayData)) {
+                    if (Number.isFinite(Number(shift)) || !Array.isArray(rawMembers)) continue;
+
+                    rawMembers.forEach(raw => {
+                        const name = formatName(raw);
+                        if (!name) return;
+                        const key = name.toLocaleLowerCase();
+                        const city = getOfficeCity(raw);
+                        const member = teamByKey.get(key) || { key, name, city, shiftCounts: {} };
+                        if (!member.city && city) member.city = city;
+
+                        const normalizedShift = shift.trim().toUpperCase();
+                        if (!isNonWorkingShift(shift) && !['WFH', 'WFO', 'NOT SCHEDULED', 'NOT FOUND / LEAVE'].includes(normalizedShift)) {
+                            member.shiftCounts[shift] = (member.shiftCounts[shift] || 0) + 1;
+                        }
+
+                        teamByKey.set(key, member);
+                        assignments.set(key, { shift, location: getLocation(raw), city });
+                    });
+                }
+
+                assignmentsByDate.set(date, assignments);
+            }
+
+            const team = Array.from(teamByKey.values()).map(member => {
+                const commonShift = Object.entries(member.shiftCounts)
+                    .sort((a, b) => b[1] - a[1] || getShiftSortValue(a[0]) - getShiftSortValue(b[0]))[0];
+                return { ...member, baseShift: commonShift ? commonShift[0] : 'Other' };
+            });
+            team.forEach(member => teamByKey.set(member.key, member));
+            const membersByShift = new Map();
+            team.forEach(member => {
+                if (!membersByShift.has(member.baseShift)) membersByShift.set(member.baseShift, []);
+                membersByShift.get(member.baseShift).push(member);
+            });
+            const shiftGroups = Array.from(membersByShift.entries())
+                .sort((a, b) => getShiftSortValue(a[0]) - getShiftSortValue(b[0]) || a[0].localeCompare(b[0]));
+            const selectedUserKey = selectedUser.toLocaleLowerCase();
+            const monthDate = new Date(`${sortedDates[0]}T00:00:00`);
+            const monthLabel = monthDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            const shortShiftLabels = {
+                '6 AM - 3 PM IST': '6a–3p',
+                '2 PM - 11 PM IST': '2p–11p',
+                '10 PM - 7 AM IST': '10p–7a',
+                'F H': 'FH'
+            };
+            const shiftNameLabels = {
+                '6 AM - 3 PM IST': 'Morning',
+                '2 PM - 11 PM IST': 'Afternoon',
+                '10 PM - 7 AM IST': 'Night'
+            };
+            const getShiftLabel = shift => shortShiftLabels[shift] || shift;
+            const getShiftDisplayName = shift => shiftNameLabels[shift] ? `${shiftNameLabels[shift]} · ${shift}` : shift;
+            const getAssignmentLocation = assignment => assignment.location || (/^(WFO|WFH)$/i.test(assignment.shift) ? assignment.shift.toUpperCase() : null);
+            const availableShiftGroups = shiftGroups.filter(([shift]) => shiftOrder.includes(shift));
+            const selectedMember = team.find(member => member.key === selectedUserKey);
+            const memberBaseShift = selectedMember?.baseShift;
+            const memberBaseShiftStyle = shiftStyles[memberBaseShift] || defaultStyle;
+            const activeShift = availableShiftGroups.some(([shift]) => shift === monthlyShiftFilter)
+                ? monthlyShiftFilter
+                : (availableShiftGroups.some(([shift]) => shift === memberBaseShift)
+                    ? memberBaseShift
+                    : (availableShiftGroups[0]?.[0] || null));
+            const activeShiftMembers = team.filter(member => member.baseShift === activeShift);
+            const activeShiftStyle = shiftStyles[activeShift] || defaultStyle;
+            const headerShift = monthlyViewMode === 'person' ? memberBaseShift : activeShift;
+            const headerShiftStyle = shiftStyles[headerShift];
+            const monthlyHeaderColorClass = shiftOrder.includes(headerShift) && headerShiftStyle
+                ? `${headerShiftStyle.bg} ${headerShiftStyle.border}`
+                : 'bg-slate-50 border-slate-100';
+            const monthlyHeader = `
+                <section class="mx-auto max-w-6xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                    <header class="space-y-3 border-b p-5 ${monthlyHeaderColorClass} md:flex md:items-center md:justify-between md:gap-4 md:space-y-0">
+                        <div>
+                            <h2 class="flex flex-wrap items-center gap-2 text-lg font-bold text-slate-800">
+                                <span>${monthLabel} · Monthly Roster</span>
+                                ${monthlyViewMode === 'person' && memberBaseShift && memberBaseShift !== 'Other' ? `<span class="inline-flex items-center gap-1 rounded-lg ${memberBaseShiftStyle.bg} px-2 py-1 text-sm font-semibold ${memberBaseShiftStyle.text}">${memberBaseShiftStyle.icon} ${getShiftDisplayName(memberBaseShift)}</span>` : ''}
+                                ${monthlyViewMode === 'shiftwise' && activeShift ? `<span class="inline-flex items-center gap-1 rounded-lg ${activeShiftStyle.bg} px-2 py-1 text-sm font-semibold ${activeShiftStyle.text}">${activeShiftStyle.icon} ${getShiftDisplayName(activeShift)}</span>` : ''}
+                            </h2>
+                            <p class="mt-1 text-sm text-slate-500">${monthlyViewMode === 'person' ? `Individual schedule for ${selectedUser}.` : `${activeShiftMembers.length} members in this shift. Your selected member is highlighted.`}</p>
+                        </div>
+                        <div class="flex w-full shrink-0 flex-wrap items-center gap-2 md:w-auto">
+                            ${monthlyViewMode === 'shiftwise' ? `
+                                <label for="monthly-shift-select" class="sr-only">Select shift</label>
+                                <div class="relative w-full md:w-auto">
+                                    <select id="monthly-shift-select" onchange="setMonthlyShiftFilter(this.value)" class="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2 pl-3 pr-10 text-sm font-semibold text-slate-700 shadow-sm md:w-auto">
+                                        ${availableShiftGroups.length ? availableShiftGroups.map(([shift]) => {
+                                            return `<option value="${shift}" ${shift === activeShift ? 'selected' : ''}>${getShiftDisplayName(shift)}</option>`;
+                                        }).join('') : '<option value="">No shifts available</option>'}
+                                    </select>
+                                    <svg aria-hidden="true" class="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
+                                </div>
+                            ` : ''}
+                            <div class="inline-flex rounded-lg bg-slate-200 p-1" role="group" aria-label="Monthly roster view">
+                                <button type="button" onclick="setMonthlyMode('person')" aria-pressed="${monthlyViewMode === 'person'}" class="rounded-md px-3 py-1.5 text-sm font-semibold transition-all ${monthlyViewMode === 'person' ? 'bg-white text-slate-800 shadow' : 'text-slate-500 hover:text-slate-700'}">Single person</button>
+                                <button type="button" onclick="setMonthlyMode('shiftwise')" aria-pressed="${monthlyViewMode === 'shiftwise'}" class="rounded-md px-3 py-1.5 text-sm font-semibold transition-all ${monthlyViewMode === 'shiftwise' ? 'bg-white text-slate-800 shadow' : 'text-slate-500 hover:text-slate-700'}">Shiftwise</button>
                             </div>
-                        `).join('')}
+                        </div>
+                    </header>
             `;
 
-            if (sortedDates.length > 0) {
-                const firstDate = new Date(sortedDates[0] + 'T00:00:00');
-                const firstDayOfWeek = firstDate.getDay(); 
-                for (let i = 0; i < firstDayOfWeek; i++) {
-                    html += `<div class="bg-slate-50 min-h-[100px] p-2"></div>`;
-                }
-            }
+            if (monthlyViewMode === 'person') {
+                let calendarCells = '';
+                const firstDay = new Date(`${sortedDates[0]}T00:00:00`).getDay();
+                for (let i = 0; i < firstDay; i++) calendarCells += '<div class="min-h-[58px] bg-slate-50"></div>';
 
-            for (const d of sortedDates) {
-                const dayData = currentLoadedData[d];
-                let myShift = "Not Found / Leave";
-                let myLocation = null;
-                const validShifts = Object.keys(dayData).filter(k => isNaN(k));
+                for (const date of sortedDates) {
+                    const dateObj = new Date(`${date}T00:00:00`);
+                    const dayNumber = dateObj.getDate();
+                    const assignment = assignmentsByDate.get(date).get(selectedUserKey);
+                    const shift = assignment?.shift || 'Not Scheduled';
+                    const style = shiftStyles[shift] || defaultStyle;
+                    const location = assignment ? getAssignmentLocation(assignment) : null;
+                    const locationClass = location === 'WFO' ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700';
+                    const showShiftLabel = !shiftOrder.includes(shift);
+                    const showStatusBorder = !['wo', 'fh', 'f h'].includes(shift.trim().toLowerCase());
+                    const isSelectedDate = date === currentDate;
+                    const cellBackground = location === 'WFO' ? 'bg-green-100' : location === 'WFH' ? 'bg-purple-100' : style.bg;
 
-                for (const shift of validShifts) {
-                    const assignedMatch = dayData[shift].find(n => formatName(n) === selectedUser);
-                    if (assignedMatch) {
-                        myShift = shift;
-                        myLocation = getLocation(assignedMatch);
-                        break;
-                    }
-                }
-
-                const style = shiftStyles[myShift] || defaultStyle;
-                const dateObj = new Date(d + 'T00:00:00');
-                const dayNum = dateObj.getDate();
-                const isToday = d === currentDate;
-                const todayStyles = isToday ? 'ring-2 ring-blue-500 ring-inset bg-blue-50/30' : 'bg-white';
-                
-                const locationBadgeStyle = myLocation === 'WFO' 
-                    ? 'bg-green-100 text-green-700 ring-1 ring-green-600/20' 
-                    : 'bg-purple-100 text-purple-700 ring-1 ring-purple-600/20';
-
-                html += `
-                    <div class="${todayStyles} min-h-[100px] p-3 flex flex-col hover:bg-slate-50 transition-colors">
-                        <span class="text-sm font-semibold text-slate-700 mb-2 ${isToday ? 'text-blue-600' : ''}">${dayNum}</span>
-                        <div class="mt-auto flex flex-col gap-1.5">
-                            <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-semibold ${style.bg} ${style.text} border ${style.border} shadow-sm max-w-full overflow-hidden whitespace-nowrap text-ellipsis" title="${myShift}">
-                                ${style.icon} <span class="truncate">${myShift}</span>
+                    calendarCells += `
+                        <article class="${cellBackground} ${isSelectedDate ? 'ring-2 ring-inset ring-blue-400' : ''} flex min-h-[58px] flex-col p-1.5 transition duration-150 ease-out hover:brightness-95">
+                            <span class="mb-1 text-xs font-bold ${isSelectedDate ? 'text-blue-700' : 'text-slate-700'}">${dayNumber}</span>
+                            <div class="mt-auto flex flex-col items-end gap-1">
+                                ${showShiftLabel ? `<div class="inline-flex max-w-full self-end rounded-md ${showStatusBorder ? `border ${style.border}` : ''} ${style.bg} px-1.5 py-1 text-xs font-semibold ${style.text}" title="${assignment ? assignment.shift : 'Not Scheduled'}"><span class="truncate">${style.icon} ${shift}</span></div>` : ''}
+                                ${location ? `<span class="inline-flex self-end rounded px-1.5 py-0.5 text-[11px] font-bold ${locationClass}">${location}</span>` : ''}
                             </div>
-                            ${myLocation ? `<div class="inline-flex items-center justify-center px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wider ${locationBadgeStyle}">${myLocation}</div>` : ''}
+                        </article>
+                    `;
+                }
+
+                const lastDay = new Date(`${sortedDates[sortedDates.length - 1]}T00:00:00`).getDay();
+                for (let i = lastDay; i < 6; i++) calendarCells += '<div class="min-h-[58px] bg-slate-50"></div>';
+
+                const statusLabels = { WFO: 'WFO', WFH: 'WFH', WO: 'WO', LEAVE: 'Leave', CO: 'CO', FH: 'FH', HOLIDAY: 'Holiday' };
+                const statusClasses = {
+                    WFO: 'bg-green-100 text-green-700',
+                    WFH: 'bg-purple-100 text-purple-700',
+                    WO: 'bg-slate-100 text-slate-600',
+                    LEAVE: 'bg-rose-50 text-rose-700',
+                    CO: 'bg-orange-50 text-orange-700',
+                    FH: 'bg-cyan-50 text-cyan-700',
+                    HOLIDAY: 'bg-pink-50 text-pink-700'
+                };
+                const monthlyStatusCounts = new Map();
+                for (const date of sortedDates) {
+                    const assignment = assignmentsByDate.get(date).get(selectedUserKey);
+                    if (!assignment) continue;
+                    const location = getAssignmentLocation(assignment);
+                    const rawStatus = location === 'WFO' || location === 'WFH' ? location : assignment.shift.trim().toUpperCase();
+                    const status = rawStatus === 'F H' ? 'FH' : rawStatus;
+                    if (statusLabels[status]) monthlyStatusCounts.set(status, (monthlyStatusCounts.get(status) || 0) + 1);
+                }
+                const monthlyStatusSummary = `
+                    <div class="flex flex-wrap items-center gap-2 border-t border-slate-100 px-5 py-3">
+                        <span class="mr-1 text-sm font-semibold text-slate-600">Monthly status count</span>
+                        ${Object.entries(statusLabels).filter(([status]) => monthlyStatusCounts.has(status)).map(([status, label]) => `
+                            <span class="rounded-full px-2.5 py-1 text-xs font-semibold ${statusClasses[status]}">${label}<span class="mx-1 opacity-60" aria-hidden="true">|</span><strong>${monthlyStatusCounts.get(status)}</strong></span>
+                        `).join('')}
+                    </div>
+                `;
+
+                const personCalendar = `
+                    <div class="hidden lg:block">
+                        <div class="grid grid-cols-7 gap-px border-t border-slate-200 bg-slate-200">
+                            ${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => `<div class="bg-slate-50 p-3 text-center text-xs font-bold uppercase tracking-wide text-slate-500">${day}</div>`).join('')}
+                            ${calendarCells}
                         </div>
                     </div>
+                    <div class="divide-y divide-slate-100 border-t border-slate-200 lg:hidden">
+                        ${sortedDates.map(date => {
+                            const dateObj = new Date(`${date}T00:00:00`);
+                            const assignment = assignmentsByDate.get(date).get(selectedUserKey);
+                            const shift = assignment?.shift || 'Not Scheduled';
+                            const style = shiftStyles[shift] || defaultStyle;
+                            const location = assignment ? getAssignmentLocation(assignment) : null;
+                            const locationClass = location === 'WFO' ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700';
+                            const showShiftLabel = !shiftOrder.includes(shift);
+                            const showStatusBorder = !['wo', 'fh', 'f h'].includes(shift.trim().toLowerCase());
+                            return `
+                                <div class="flex items-center justify-between gap-3 p-4 ${date === currentDate ? 'border-l-4 border-blue-500 bg-blue-50' : 'bg-white'}">
+                                    <div><div class="font-semibold text-slate-800">${dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div><div class="text-xs text-slate-500">${dateObj.toLocaleDateString('en-US', { weekday: 'short' })}</div></div>
+                                    <div class="flex items-center gap-2">
+                                        ${location ? `<span class="rounded px-2 py-1 text-[10px] font-bold ${locationClass}">${location}</span>` : ''}
+                                        ${showShiftLabel ? `<span class="rounded-lg ${showStatusBorder ? `border ${style.border}` : ''} ${style.bg} px-2.5 py-1.5 text-xs font-semibold ${style.text}">${style.icon} ${shift}</span>` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+
+                contentDiv.innerHTML = `${monthlyHeader}${personCalendar}${monthlyStatusSummary}</section>`;
+                return;
+            }
+
+            function getDayGroups(date) {
+                const groups = new Map();
+                const assignments = assignmentsByDate.get(date) || new Map();
+                for (const [key, assignment] of assignments.entries()) {
+                    const member = teamByKey.get(key);
+                    if (!member || member.baseShift !== activeShift) continue;
+                    if (!groups.has(assignment.shift)) groups.set(assignment.shift, []);
+                    groups.get(assignment.shift).push({ ...member, ...assignment });
+                }
+                return Array.from(groups.entries())
+                    .sort((a, b) => getShiftSortValue(a[0]) - getShiftSortValue(b[0]) || a[0].localeCompare(b[0]));
+            }
+
+            function renderMemberCard(member, shiftStyle) {
+                const location = getAssignmentLocation(member);
+                const badge = getStatusBadge({ shift: member.shift, location });
+                const isSelected = member.key === selectedUserKey;
+                const cityBadge = member.city
+                    ? `<span class="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-600">${member.city}</span>`
+                    : '';
+                return `
+                    <li class="flex min-w-0 items-center gap-2 px-1 py-2 text-sm text-slate-800 ${isSelected ? 'font-bold' : 'font-medium'}">
+                        <span class="min-w-0 flex-1 truncate">${member.name}</span>
+                        ${cityBadge}${badge}
+                    </li>
                 `;
             }
 
-            if (sortedDates.length > 0) {
-                const lastDate = new Date(sortedDates[sortedDates.length - 1] + 'T00:00:00');
-                const lastDayOfWeek = lastDate.getDay();
-                for (let i = lastDayOfWeek; i < 6; i++) {
-                    html += `<div class="bg-slate-50 min-h-[100px] p-2"></div>`;
-                }
-            }
+            const desktopGroups = [...activeShiftMembers].sort((a, b) => a.name.localeCompare(b.name)).map(member => {
+                    const isSelected = member.key === selectedUserKey;
+                    const stickyBackground = isSelected ? 'bg-blue-50' : 'bg-white';
+                    const nameCell = `
+                        <th scope="row" class="sticky left-0 z-10 min-w-[220px] border-b border-r border-slate-200 ${stickyBackground} px-3 py-2 text-left">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="truncate ${isSelected ? 'font-bold text-blue-700' : 'font-semibold text-slate-800'}">${member.name}</span>
+                                ${member.city ? `<span class="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-slate-600">${member.city}</span>` : ''}
+                            </div>
+                        </th>
+                    `;
+                    const dateCells = sortedDates.map(date => {
+                        const assignment = assignmentsByDate.get(date).get(member.key);
+                        if (!assignment) {
+                            return `<td class="min-w-[72px] border-b border-r border-slate-200 px-1 py-1 text-center text-slate-300">—</td>`;
+                        }
+                        const cellStyle = shiftStyles[assignment.shift] || defaultStyle;
+                        const location = getAssignmentLocation(assignment);
+                        const title = [assignment.shift, location, assignment.city].filter(Boolean).join(' · ');
+                        const showShiftLabel = !shiftOrder.includes(assignment.shift);
+                        const showLocation = location && !/^(WFO|WFH)$/i.test(assignment.shift);
+                        const cellBackground = location === 'WFO' ? 'bg-green-100' : location === 'WFH' ? 'bg-purple-100' : cellStyle.bg;
+                        const normalizedStatus = assignment.shift.trim().toLowerCase();
+                        const showStatusBorder = !['holiday', 'wo', 'leave', 'fh', 'f h'].includes(normalizedStatus);
+                        return `
+                            <td class="min-w-[72px] border-b border-r border-slate-200 ${cellBackground} px-1 py-1 text-center">
+                                <div class="mx-auto flex max-w-[68px] flex-col items-center gap-1" title="${title}">
+                                    ${showShiftLabel ? `<span class="w-full truncate rounded ${showStatusBorder ? `border ${cellStyle.border}` : ''} ${cellStyle.bg} px-1 py-1 text-[10px] font-bold ${cellStyle.text}">${getShiftLabel(assignment.shift)}</span>` : ''}
+                                    ${showLocation ? `<span class="rounded px-1.5 py-0.5 text-[9px] font-bold ${location === 'WFO' ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700'}">${location}</span>` : ''}
+                                </div>
+                            </td>
+                        `;
+                    }).join('');
+                    return `<tr class="${isSelected ? 'monthly-selected-row' : 'bg-white'} hover:bg-slate-50">${nameCell}${dateCells}</tr>`;
+            }).join('');
 
-            html += `</div>`; 
+            const dailyShiftSummaries = sortedDates.map(date => {
+                const workingMembers = activeShiftMembers.flatMap(member => {
+                    const assignment = assignmentsByDate.get(date).get(member.key);
+                    if (!assignment || !shiftOrder.includes(assignment.shift)) return [];
+                    return [{ ...member, ...assignment, rosterCity: assignment.city || member.city }];
+                });
+                return {
+                    onShift: workingMembers.length,
+                    pune: workingMembers.filter(member => member.rosterCity === 'Pune').length,
+                    noida: workingMembers.filter(member => member.rosterCity === 'Noida').length,
+                    wfh: workingMembers.filter(member => getAssignmentLocation(member) === 'WFH').length,
+                    wfo: workingMembers.filter(member => getAssignmentLocation(member) === 'WFO').length
+                };
+            });
+            const summaryRows = [
+                { key: 'onShift', label: 'On shift', valueClass: 'text-slate-700' },
+                { key: 'pune', label: 'Pune', valueClass: 'text-slate-700' },
+                { key: 'noida', label: 'Noida', valueClass: 'text-slate-700' },
+                { key: 'wfh', label: 'WFH', valueClass: 'text-purple-700' },
+                { key: 'wfo', label: 'WFO', valueClass: 'text-green-700' }
+            ].map(row => `
+                <tr class="bg-slate-50 font-semibold">
+                    <th scope="row" class="sticky left-0 z-10 min-w-[220px] border-b border-r border-slate-200 bg-slate-50 px-3 py-2 text-left text-[10px] uppercase tracking-wide text-slate-600">${row.label}</th>
+                    ${dailyShiftSummaries.map(summary => `<td class="min-w-[72px] border-b border-r border-slate-200 px-1 py-2 text-center text-[10px] ${row.valueClass}">${summary[row.key]}</td>`).join('')}
+                </tr>
+            `).join('');
 
-            // Mobile List View
-            html += `<div class="lg:hidden divide-y divide-slate-100">`;
-
-            for (const d of sortedDates) {
-                const dayData = currentLoadedData[d];
-                let myShift = "Not Found / Leave";
-                let myLocation = null;
-                const validShifts = Object.keys(dayData).filter(k => isNaN(k));
-
-                for (const shift of validShifts) {
-                    const assignedMatch = dayData[shift].find(n => formatName(n) === selectedUser);
-                    if (assignedMatch) {
-                        myShift = shift;
-                        myLocation = getLocation(assignedMatch);
-                        break;
-                    }
-                }
-
-                const style = shiftStyles[myShift] || defaultStyle;
-                const dateObj = new Date(d + 'T00:00:00');
-                const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
-                const monthDay = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                const isWeekend = (dateObj.getDay() === 0 || dateObj.getDay() === 6);
-                const rowBg = isWeekend ? 'bg-slate-50/50' : 'bg-white';
-                const isToday = d === currentDate;
-                const todayStyles = isToday ? 'border-l-4 border-l-blue-500 bg-blue-50/20' : 'border-l-4 border-l-transparent';
-                
-                const locationBadgeStyle = myLocation === 'WFO' 
-                    ? 'bg-green-100 text-green-700 ring-1 ring-green-600/20' 
-                    : 'bg-purple-100 text-purple-700 ring-1 ring-purple-600/20';
-
-                html += `
-                    <div class="${rowBg} ${todayStyles} p-4 flex justify-between items-center hover:bg-slate-50 transition-colors">
-                        <div>
-                            <div class="font-semibold text-slate-700">${monthDay}</div>
-                            <div class="text-xs text-slate-400 font-medium">${dayName}</div>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            ${myLocation ? `<div class="inline-flex items-center justify-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${locationBadgeStyle}">${myLocation}</div>` : ''}
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold ${style.bg} ${style.text} border ${style.border} shadow-sm">
-                                ${style.icon} ${myShift}
-                            </span>
-                        </div>
-                    </div>
-                `;
-            }
-
-            html += `
-                    </div>
+            const desktopTable = `
+                <div class="hidden max-h-[72vh] overflow-auto border-t border-slate-200 lg:block">
+                    <table class="w-max min-w-full border-separate border-spacing-0 text-center text-xs">
+                        <thead class="sticky top-0 z-20">
+                            <tr>
+                                <th scope="col" class="sticky left-0 top-0 z-40 min-w-[220px] border-b border-r border-slate-200 bg-slate-50 px-3 py-2 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Team member</th>
+                                ${sortedDates.map(date => {
+                                    const dateObj = new Date(`${date}T00:00:00`);
+                                    const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+                                    const dayNumber = dateObj.getDate();
+                                    return `<th scope="col" class="sticky top-0 z-30 min-w-[72px] border-b border-r border-slate-200 bg-slate-50 px-1 py-2 ${date === currentDate ? 'text-blue-700' : 'text-slate-600'}"><span class="block text-[9px] font-semibold uppercase">${dayName}</span><span class="block font-bold">${dayNumber}</span></th>`;
+                                }).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>${desktopGroups}</tbody>
+                        <tfoot>${summaryRows}</tfoot>
+                    </table>
                 </div>
             `;
 
-            contentDiv.innerHTML = html;
+            const mobileDays = sortedDates.map(date => {
+                const dateObj = new Date(`${date}T00:00:00`);
+                const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
+                const monthDay = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                const dayAssignments = Array.from(assignmentsByDate.get(date).entries())
+                    .filter(([key]) => teamByKey.get(key)?.baseShift === activeShift)
+                    .map(([key, assignment]) => ({ ...teamByKey.get(key), ...assignment, key }));
+                const wfoCount = dayAssignments.filter(member => getAssignmentLocation(member) === 'WFO').length;
+                const wfhCount = dayAssignments.filter(member => getAssignmentLocation(member) === 'WFH').length;
+                const puneCount = dayAssignments.filter(member => member.city === 'Pune').length;
+                const noidaCount = dayAssignments.filter(member => member.city === 'Noida').length;
+                const dayGroups = getDayGroups(date).map(([shift, members]) => {
+                    const groupStyle = shiftStyles[shift] || defaultStyle;
+                    const orderedMembers = [...members].sort((a, b) => {
+                        if (a.key === selectedUserKey) return -1;
+                        if (b.key === selectedUserKey) return 1;
+                        return a.name.localeCompare(b.name);
+                    });
+                    return `
+                        <section class="${groupStyle.bg} border ${groupStyle.border} rounded-xl p-3">
+                            <h3 class="mb-2 flex items-center gap-2 text-sm font-bold ${groupStyle.text}">${groupStyle.icon} ${getShiftDisplayName(shift)}<span class="ml-auto rounded-full bg-white/90 px-2 py-0.5 text-xs text-slate-600">${members.length}</span></h3>
+                            <ul class="grid grid-cols-1 gap-2 sm:grid-cols-2">${orderedMembers.map(member => renderMemberCard(member, groupStyle)).join('')}</ul>
+                        </section>
+                    `;
+                }).join('');
+
+                return `
+                    <details class="rounded-xl border border-slate-200 bg-white shadow-sm" ${date === currentDate ? 'open' : ''}>
+                        <summary class="flex cursor-pointer list-none flex-wrap items-center justify-between gap-2 p-4">
+                            <span><strong class="text-slate-800">${monthDay}</strong><span class="ml-2 text-xs text-slate-500">${dayName}</span></span>
+                            <span class="flex flex-wrap gap-1.5 text-[10px] font-semibold">
+                                <span class="rounded bg-slate-100 px-2 py-1 text-slate-600">${dayAssignments.length} members</span>
+                                <span class="rounded bg-green-100 px-2 py-1 text-green-700">WFO ${wfoCount}</span>
+                                <span class="rounded bg-purple-100 px-2 py-1 text-purple-700">WFH ${wfhCount}</span>
+                                <span class="rounded bg-slate-100 px-2 py-1 text-slate-600">Pune ${puneCount} · Noida ${noidaCount}</span>
+                            </span>
+                        </summary>
+                        <div class="space-y-3 border-t border-slate-200 p-3">${dayGroups}</div>
+                    </details>
+                `;
+            }).join('');
+
+            contentDiv.innerHTML = `
+                ${monthlyHeader}
+                ${desktopTable}
+                <div class="space-y-3 p-3 lg:hidden">${mobileDays}</div>
+            </section>
+            `;
         }
 
         init();

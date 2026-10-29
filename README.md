@@ -10,7 +10,7 @@ This dashboard eliminates the need to scroll through complex Excel spreadsheets 
 
 Daily View: Shows each shift in its own card, puts the selected member's shift first, and summarizes team size, available WFO/WFH totals, and Pune/Noida counts.
 
-Monthly View: Displays a full Calendar Grid on Desktop and automatically switches to a streamlined List View on mobile devices.
+Monthly View: Toggle between one person's calendar/list (defaults to Shoaib Akhtar) and the whole-team shiftwise roster. Shiftwise mode shows one selectable base shift at a time and defaults to the selected member's most common shift for that month.
 
 🌗 Dark Mode: Use the theme button in the header to switch themes. The dashboard follows your device theme on first visit and remembers your choice in this browser.
 
