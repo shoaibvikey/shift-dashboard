@@ -369,7 +369,7 @@
                         <div class="h-4 bg-slate-200 rounded w-1/2 mx-auto"></div>
                     </div>`;
 
-                const response = await fetch(filePath); 
+                const response = await fetch(filePath, { cache: 'no-cache' });
                 if (!response.ok) throw new Error("File not found");
                 
                 const data = await response.json();
