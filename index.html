@@ -145,6 +145,14 @@
         .mobile-header-control-row #month-picker-container { min-width: 0; width: 100%; }
         .mobile-header-control-row #date-picker,
         .mobile-header-control-row #month-picker { min-width: 0; width: 100%; padding-inline: 0.5rem; font-size: 0.8rem; }
+        .mobile-date-picker-chevron { display: none; }
+        @media (max-width: 639px) {
+            .mobile-header-control-row #date-picker,
+            .mobile-header-control-row #month-picker { padding-right: 2.25rem; }
+            .mobile-header-control-row #date-picker::-webkit-calendar-picker-indicator,
+            .mobile-header-control-row #month-picker::-webkit-calendar-picker-indicator { opacity: 0; }
+            .mobile-date-picker-chevron { display: block; }
+        }
         @media (min-width: 640px) {
             .mobile-header-control-row { display: contents; }
             .mobile-header-control-row #date-picker-container,
@@ -228,6 +236,7 @@
                         <label for="date-picker" class="sr-only">Select Date</label>
                         <input type="date" id="date-picker"
                             class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-medium">
+                        <svg aria-hidden="true" class="mobile-date-picker-chevron pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
                     </div>
 
                     <!-- Month Picker (Monthly View) -->
@@ -235,6 +244,7 @@
                         <label for="month-picker" class="sr-only">Select Month</label>
                         <input type="month" id="month-picker"
                             class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-medium">
+                        <svg aria-hidden="true" class="mobile-date-picker-chevron pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
                     </div>
 
                     <button id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode"
