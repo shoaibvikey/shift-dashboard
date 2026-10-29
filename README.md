@@ -8,9 +8,11 @@ This dashboard eliminates the need to scroll through complex Excel spreadsheets 
 
 📱 Fully Responsive:
 
-Daily View: Highlights your specific shift, shows who is sharing it with you, and tucks the rest of the team into a clean collapsible menu.
+Daily View: Shows each shift in its own card, puts the selected member's shift first, and summarizes team size, available WFO/WFH totals, and Pune/Noida counts.
 
 Monthly View: Displays a full Calendar Grid on Desktop and automatically switches to a streamlined List View on mobile devices.
+
+🌗 Dark Mode: Use the theme button in the header to switch themes. The dashboard follows your device theme on first visit and remembers your choice in this browser.
 
 🎨 Dynamic Theming: Shifts are color-coded (e.g., Morning is Amber, Evening is Blue, Night is Indigo, Offs are Emerald) with visual emoji indicators.
 
@@ -34,6 +36,15 @@ your-repo-name/
 │
 └── 2027/               # Next year's folder
     ├── Jan.json        # Data for January 2027
+🖥️ Preview Locally
+Run a static HTTP server from the repository folder, then open its local address in your browser. Opening `index.html` directly as a `file://` URL can prevent the browser from fetching the JSON roster files.
+
+```sh
+python3 -m http.server 8000
+```
+
+Then visit [http://localhost:8000/](http://localhost:8000/).
+
 🚀 How to Deploy
 Create a new repository on GitHub and upload your index.html file.
 
@@ -62,6 +73,8 @@ Instructions for parsing:
 Identify the row containing the dates (usually around row 7 or 8) to use as the header.
 
 Parse the employee names and their daily shift assignments. Skip constraint/total rows at the bottom.
+
+Use the `Location` column for each employee's city. For working days, group the employee under their assigned shift and include both work mode and city in the name entry, such as `Samyak Jain | WFO | Pune` or `Shoaib Akhtar | WFH | Noida`. For non-working statuses, include the city tag, such as `Shoaib Akhtar | Noida`.
 
 Format all dates strictly as YYYY-MM-DD.
 

@@ -6,6 +6,15 @@
     <title>HB | L1 Roster</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        try {
+            const savedTheme = localStorage.getItem('shift-dashboard-theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.classList.toggle('dark', savedTheme ? savedTheme === 'dark' : prefersDark);
+        } catch (_) {
+            // Keep the dashboard usable when browser storage is unavailable.
+        }
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -18,6 +27,61 @@
         
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
+
+        html { color-scheme: light; }
+        html.dark { color-scheme: dark; }
+        html.dark body { background-color: #0b1220; color: #e2e8f0; }
+        html.dark input { color-scheme: dark; }
+
+        html.dark [class~="bg-white"] { background-color: #172033; }
+        html.dark [class~="bg-white/90"] { background-color: rgb(30 41 59 / 0.9); }
+        html.dark [class~="bg-white/50"] { background-color: rgb(30 41 59 / 0.5); }
+        html.dark [class~="bg-slate-50"] { background-color: #111827; }
+        html.dark [class~="bg-slate-50/50"] { background-color: rgb(17 24 39 / 0.6); }
+        html.dark [class~="bg-blue-50/30"] { background-color: rgb(30 58 138 / 0.24); }
+        html.dark [class~="bg-slate-100"] { background-color: #1e293b; }
+        html.dark [class~="bg-slate-200"] { background-color: #334155; }
+        html.dark [class~="hover:bg-slate-50"]:hover { background-color: #1e293b; }
+        html.dark [class~="hover:bg-slate-50/50"]:hover { background-color: #1e293b; }
+
+        html.dark [class~="text-slate-900"] { color: #f8fafc; }
+        html.dark [class~="text-slate-800"],
+        html.dark [class~="text-slate-700"] { color: #e2e8f0; }
+        html.dark [class~="text-slate-600"] { color: #cbd5e1; }
+        html.dark [class~="text-slate-500"],
+        html.dark [class~="text-slate-400"] { color: #94a3b8; }
+        html.dark [class*="border-slate-"] { border-color: #334155; }
+
+        html.dark [class~="bg-amber-50"] { background-color: #3f2a12; }
+        html.dark [class~="border-amber-200"] { border-color: #92400e; }
+        html.dark [class~="text-amber-700"] { color: #fcd34d; }
+        html.dark [class~="bg-blue-50"] { background-color: #172554; }
+        html.dark [class~="border-blue-200"] { border-color: #1d4ed8; }
+        html.dark [class~="text-blue-700"] { color: #93c5fd; }
+        html.dark [class~="bg-indigo-50"] { background-color: #1e1b4b; }
+        html.dark [class~="border-indigo-200"] { border-color: #4338ca; }
+        html.dark [class~="text-indigo-700"] { color: #a5b4fc; }
+        html.dark [class~="bg-emerald-50"] { background-color: #052e2b; }
+        html.dark [class~="border-emerald-200"] { border-color: #047857; }
+        html.dark [class~="text-emerald-700"] { color: #6ee7b7; }
+        html.dark [class~="bg-rose-50"] { background-color: #4c1d2a; }
+        html.dark [class~="border-rose-200"] { border-color: #be123c; }
+        html.dark [class~="text-rose-700"] { color: #fda4af; }
+        html.dark [class~="bg-purple-50"] { background-color: #3b0764; }
+        html.dark [class~="border-purple-200"] { border-color: #7e22ce; }
+        html.dark [class~="text-purple-700"] { color: #d8b4fe; }
+        html.dark [class~="bg-cyan-50"] { background-color: #083344; }
+        html.dark [class~="border-cyan-200"] { border-color: #0e7490; }
+        html.dark [class~="text-cyan-700"] { color: #67e8f9; }
+        html.dark [class~="bg-orange-50"] { background-color: #431407; }
+        html.dark [class~="border-orange-200"] { border-color: #c2410c; }
+        html.dark [class~="text-orange-700"] { color: #fdba74; }
+        html.dark [class~="bg-pink-50"] { background-color: #500724; }
+        html.dark [class~="text-pink-700"] { color: #f9a8d4; }
+        html.dark [class~="bg-green-100"] { background-color: #064e3b; }
+        html.dark [class~="text-green-700"] { color: #6ee7b7; }
+        html.dark [class~="bg-purple-100"] { background-color: #581c87; }
+        html.dark [class~="text-purple-700"] { color: #e9d5ff; }
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex justify-center text-slate-800">
@@ -27,7 +91,7 @@
         <!-- Header Section -->
         <header class="mb-8 text-center md:text-left flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b border-slate-200 pb-6">
             <div>
-                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">L1 Monthly Roster</h1>
+                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Coforge L1 Operations | HappenBank</h1>
             </div>
             
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap justify-end">
@@ -62,6 +126,11 @@
                     <input type="month" id="month-picker" 
                         class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-medium">
                 </div>
+
+                <button id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode"
+                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white p-2 text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50">
+                    <span id="theme-toggle-icon" aria-hidden="true">🌙</span>
+                </button>
             </div>
         </header>
 
@@ -92,6 +161,7 @@
             "Leave": { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-700", icon: "🤒" },
             "Holiday": { bg: "bg-purple-50", border: "border-purple-200", text: "text-purple-700", icon: "🎉" },
             "FH": { bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", icon: "🏖️" },
+            "F H": { bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", icon: "🏖️" },
             "CO": { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", icon: "⏱️" }
         };
         
@@ -100,19 +170,80 @@
             "2 PM - 11 PM IST",
             "10 PM - 7 AM IST"
         ];
+        const nonWorkingShiftOrder = ["WO", "Leave", "CO", "FH", "F H", "Holiday"];
 
         const defaultStyle = { bg: "bg-slate-50", border: "border-slate-200", text: "text-slate-700", icon: "📋" };
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
         // Parses out the WFO/WFH tag if present
         function formatName(name) {
-            return name.split('|')[0].replace(/\s*\(Self Commute\)/gi, '').trim();
+            return String(name).split('|')[0]
+                .replace(/\u00a0/g, ' ')
+                .replace(/\s*\(Self Commute\)/gi, '')
+                .replace(/\s+/g, ' ')
+                .trim();
         }
 
-        // Extracts WFO or WFH from the JSON string
+        function getRosterTags(name) {
+            return String(name).split('|').slice(1).map(tag => tag.trim()).filter(Boolean);
+        }
+
+        // Reads work location and office city from optional pipe-separated roster tags.
         function getLocation(name) {
-            const parts = name.split('|');
-            return parts.length > 1 ? parts[1].trim() : null;
+            const match = getRosterTags(name).join(' ').match(/\b(WFO|WFH)\b/i);
+            return match ? match[1].toUpperCase() : null;
+        }
+
+        function getOfficeCity(name) {
+            const match = getRosterTags(name).join(' ').match(/\b(Pune|Noida)\b/i);
+            return match ? match[1][0].toUpperCase() + match[1].slice(1).toLowerCase() : null;
+        }
+
+        function isNonWorkingShift(shift) {
+            return nonWorkingShiftOrder.some(status => status.toLowerCase() === shift.trim().toLowerCase());
+        }
+
+        function getShiftSortValue(shift) {
+            const normalizedShift = shift.trim();
+            const timeMatch = normalizedShift.match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\b/i);
+            if (timeMatch) {
+                let hour = Number(timeMatch[1]) % 12;
+                if (timeMatch[3].toUpperCase() === 'PM') hour += 12;
+                return hour * 60 + Number(timeMatch[2] || 0);
+            }
+
+            const configuredIndex = shiftOrder.indexOf(normalizedShift);
+            if (configuredIndex >= 0) return configuredIndex * 60;
+
+            const statusIndex = nonWorkingShiftOrder.findIndex(status => status.toLowerCase() === normalizedShift.toLowerCase());
+            if (statusIndex >= 0) return 10000 + statusIndex;
+            if (/^WFH$/i.test(normalizedShift)) return 9000;
+            if (/^WFO$/i.test(normalizedShift)) return 9001;
+            return 8000;
+        }
+
+        function updateThemeToggle() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const button = document.getElementById('theme-toggle');
+            if (!button) return;
+
+            const targetTheme = isDark ? 'light' : 'dark';
+            const label = `Switch to ${targetTheme} mode`;
+            button.setAttribute('aria-label', label);
+            button.setAttribute('aria-pressed', String(isDark));
+            button.title = label;
+            document.getElementById('theme-toggle-icon').textContent = isDark ? '☀️' : '🌙';
+        }
+
+        function setTheme(theme) {
+            const isDark = theme === 'dark';
+            document.documentElement.classList.toggle('dark', isDark);
+            try {
+                localStorage.setItem('shift-dashboard-theme', isDark ? 'dark' : 'light');
+            } catch (_) {
+                // The selected theme still applies for this page load.
+            }
+            updateThemeToggle();
         }
 
         function getStatusBadge(statusObj) {
@@ -123,7 +254,7 @@
             if (s === 'WO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-emerald-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 ring-1 ring-inset ring-emerald-600/20">WO</span>';
             if (s === 'Leave') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-rose-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-rose-700 ring-1 ring-inset ring-rose-600/20">Leave</span>';
             if (s === 'CO') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-orange-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-orange-700 ring-1 ring-inset ring-orange-600/20">CO</span>';
-            if (s === 'FH') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-cyan-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-cyan-700 ring-1 ring-inset ring-cyan-600/20">FH</span>';
+            if (s === 'FH' || s === 'F H') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-cyan-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-cyan-700 ring-1 ring-inset ring-cyan-600/20">FH</span>';
             if (s === 'Holiday') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-pink-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-pink-700 ring-1 ring-inset ring-pink-600/20">Holiday</span>';
             if (s === 'Not Scheduled') return '<span class="ml-auto inline-flex shrink-0 items-center rounded-md bg-slate-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 ring-1 ring-inset ring-slate-500/20">N/A</span>';
             
@@ -174,6 +305,12 @@
             currentDate = new Date().toLocaleDateString('en-CA');
             const datePicker = document.getElementById('date-picker');
             const monthPicker = document.getElementById('month-picker');
+
+            document.getElementById('theme-toggle').addEventListener('click', () => {
+                const isDark = document.documentElement.classList.contains('dark');
+                setTheme(isDark ? 'light' : 'dark');
+            });
+            updateThemeToggle();
             
             datePicker.value = currentDate;
             monthPicker.value = currentDate.substring(0, 7); 
@@ -295,187 +432,105 @@
                 return;
             }
 
-            const baseShifts = {};
-            const usersSet = new Set();
-            const shiftCounts = {};
-            const overrideStatuses = ['WO', 'Leave', 'Holiday', 'FH', 'CO']; 
+            const shiftEntries = Object.entries(dayData)
+                .filter(([shift, members]) => Number.isNaN(Number(shift)) && Array.isArray(members) && members.length > 0)
+                .map(([shift, rawMembers]) => ({
+                    shift,
+                    members: rawMembers.map(raw => ({
+                        raw,
+                        name: formatName(raw),
+                        location: getLocation(raw),
+                        city: getOfficeCity(raw)
+                    }))
+                }));
 
-            for (const d in currentLoadedData) {
-                for (const shift in currentLoadedData[d]) {
-                    if (isNaN(shift)) {
-                        currentLoadedData[d][shift].forEach(rawName => {
-                            const name = formatName(rawName);
-                            usersSet.add(name);
-                            if (!shiftCounts[name]) shiftCounts[name] = {};
-                            shiftCounts[name][shift] = (shiftCounts[name][shift] || 0) + 1;
-                        });
-                    }
-                }
-            }
-
-            for (const user of usersSet) {
-                let maxCount = 0;
-                let bShift = "Other";
-                for (const shift in shiftCounts[user]) {
-                    if (!overrideStatuses.includes(shift)) {
-                        if (shiftCounts[user][shift] > maxCount) {
-                            maxCount = shiftCounts[user][shift];
-                            bShift = shift;
-                        }
-                    }
-                }
-                baseShifts[user] = bShift;
-            }
-
-            function getStatusToday(user) {
-                for (const shift in dayData) {
-                    if (isNaN(shift)) {
-                        const match = dayData[shift].find(raw => formatName(raw) === user);
-                        if (match) return { shift: shift, location: getLocation(match) };
-                    }
-                }
-                return { shift: "Not Scheduled", location: null };
-            }
-
-            let todayData = getStatusToday(selectedUser);
-            let myActualStatus = todayData.shift;
-            let myLocationBadge = todayData.location;
-            let myBaseShift = baseShifts[selectedUser] || "Unknown Shift";
-            
-            const style = shiftStyles[myActualStatus] || defaultStyle;
-            let html = `<div class="max-w-3xl mx-auto">`;
-
-            html += `
-                <div class="${style.bg} border ${style.border} rounded-2xl p-6 md:p-8 shadow-sm transition-all duration-300">
-                    <div class="flex items-center justify-between mb-4 border-b ${style.border} pb-4">
-                        <h2 class="text-lg font-semibold ${style.text} flex items-center gap-2">
-                            <span>${style.icon}</span> Status Today
-                        </h2>
-                    </div>
-                    
-                    <div class="text-3xl md:text-4xl font-extrabold ${style.text} tracking-tight flex items-center flex-wrap gap-3">
-                        ${myActualStatus}
-                        ${myLocationBadge ? `<span class="text-sm px-3 py-1 rounded-lg font-bold shadow-sm ${myLocationBadge === 'WFO' ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700'} uppercase tracking-wider">${myLocationBadge}</span>` : ''}
-                    </div>
-                    <div class="text-sm font-medium ${style.text} opacity-80 mt-2 mb-6">
-                        Base Shift: ${myBaseShift}
-                    </div>
-            `;
-
-            let myShiftTeam = Array.from(usersSet).filter(u => baseShifts[u] === myBaseShift && u !== selectedUser);
-
-            myShiftTeam.sort((a, b) => {
-                const statA = getStatusToday(a);
-                const statB = getStatusToday(b);
-                const rank = (stat) => {
-                    if (stat.shift === myBaseShift) {
-                        if (stat.location === 'WFO') return 0;
-                        if (stat.location === 'WFH') return 1;
-                        return 2;
-                    }
-                    return 3;
-                };
-                return rank(statA) - rank(statB);
+            const myEntry = shiftEntries.find(entry => entry.members.some(member => member.name === selectedUser));
+            shiftEntries.sort((a, b) => {
+                if (a.shift === myEntry?.shift) return -1;
+                if (b.shift === myEntry?.shift) return 1;
+                return getShiftSortValue(a.shift) - getShiftSortValue(b.shift) || a.shift.localeCompare(b.shift);
             });
 
-            if (myShiftTeam.length > 0) {
-                html += `
-                    <h3 class="text-xs font-bold uppercase tracking-wider ${style.text} opacity-80 mb-3">
-                        My Base Team (${myBaseShift})
-                    </h3>
-                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                `;
-                
-                myShiftTeam.forEach(p => {
-                    const statObj = getStatusToday(p);
-                    const badge = getStatusBadge(statObj);
-                    const dimClass = overrideStatuses.includes(statObj.shift) ? 'opacity-70 bg-white/50' : 'bg-white/90 shadow-sm';
-                    const activeDot = (statObj.shift === myBaseShift && statObj.location === 'WFO') ? 'bg-green-500' : 'bg-slate-300';
-                    
-                    html += `
-                        <li class="${dimClass} border ${style.border} rounded-lg px-3 py-2 text-sm flex items-center text-slate-800 font-medium">
-                            <div class="w-2 h-2 rounded-full ${activeDot} mr-2.5 shrink-0"></div>
-                            <span class="truncate pr-2">${p}</span>
-                            ${badge}
-                        </li>`;
-                });
-                html += `</ul>`;
-            } else {
-               html += `<p class="text-sm opacity-80 font-medium ${style.text}">You are the only one in this base shift.</p>`;
-            }
-            html += `</div>`;
+            const allMembers = shiftEntries.flatMap(entry => entry.members);
+            const cityTaggedCount = allMembers.filter(member => member.city).length;
+            const missingCityCount = allMembers.length - cityTaggedCount;
+            const cityNote = cityTaggedCount === 0
+                ? 'Pune/Noida counts are unavailable because this roster has no city tags.'
+                : missingCityCount > 0
+                    ? `City tags are present for ${cityTaggedCount} of ${allMembers.length} assignments; untagged members are not included in Pune/Noida counts.`
+                    : '';
 
-            const otherShifts = Array.from(new Set(Object.values(baseShifts)))
-                .filter(s => s !== myBaseShift && s !== "Other");
-            
-            otherShifts.sort((a,b) => shiftOrder.indexOf(a) - shiftOrder.indexOf(b));
-
-            html += `
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mt-6">
-                    <details class="group">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-slate-800 hover:bg-slate-50 transition-colors">
-                            <span class="flex items-center gap-2 font-semibold">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                                View Rest of the Team
-                            </span>
-                            <span class="transition group-open:rotate-180 text-slate-400">
-                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                            </span>
-                        </summary>
-                        
-                        <div class="px-6 pb-6 pt-2 border-t border-slate-100 bg-slate-50/50 space-y-6">
+            let html = `
+                <div class="max-w-6xl mx-auto space-y-4">
+                    ${!myEntry ? `<div class="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600">${selectedUser} has no shift assignment for this date.</div>` : ''}
+                    ${cityNote ? `<p class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600">${cityNote} Add a city after each member's WFO/WFH tag, for example <code class="rounded bg-slate-100 px-1.5 py-0.5">Name | WFO | Pune</code> or <code class="rounded bg-slate-100 px-1.5 py-0.5">Name | WFH | Noida</code>.</p>` : ''}
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             `;
 
-            for (const shift of otherShifts) {
-                const sStyle = shiftStyles[shift] || defaultStyle;
-                const teamMembers = Array.from(usersSet).filter(u => baseShifts[u] === shift);
-                
-                teamMembers.sort((a, b) => {
-                    const statA = getStatusToday(a);
-                    const statB = getStatusToday(b);
-                    const rank = (stat) => {
-                        if (stat.shift === shift) {
-                            if (stat.location === 'WFO') return 0;
-                            if (stat.location === 'WFH') return 1;
-                            return 2;
-                        }
-                        return 3;
-                    };
-                    return rank(statA) - rank(statB);
+            shiftEntries.forEach(entry => {
+                const { shift, members } = entry;
+                const isMyShift = shift === myEntry?.shift;
+                const isStatusGroup = isNonWorkingShift(shift);
+                const style = shiftStyles[shift] || defaultStyle;
+                const sortedMembers = [...members].sort((a, b) => {
+                    if (a.name === selectedUser) return -1;
+                    if (b.name === selectedUser) return 1;
+                    const locationRank = value => value === 'WFO' ? 0 : value === 'WFH' ? 1 : 2;
+                    return locationRank(a.location) - locationRank(b.location) || a.name.localeCompare(b.name);
                 });
-                
+                const hasLocationData = members.some(member => member.location) || /^(WFO|WFH)$/i.test(shift);
+                const wfoCount = /^(WFO)$/i.test(shift) ? members.length : members.filter(member => member.location === 'WFO').length;
+                const wfhCount = /^(WFH)$/i.test(shift) ? members.length : members.filter(member => member.location === 'WFH').length;
+                const hasCityData = members.some(member => member.city);
+                const puneCount = members.filter(member => member.city === 'Pune').length;
+                const noidaCount = members.filter(member => member.city === 'Noida').length;
+                const metric = (label, value) => `<span class="inline-flex items-center gap-1 rounded-lg bg-white/90 px-2.5 py-1 text-xs text-slate-600"><span>${label}</span><strong class="font-bold text-slate-800">${value}</strong></span>`;
+                const placementClass = isMyShift ? 'md:col-span-2 xl:col-span-3 ring-2 ring-blue-500/30' : '';
+                const memberGridClass = isMyShift ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1';
+
                 html += `
-                    <div>
-                        <h3 class="text-xs font-bold uppercase tracking-wide text-slate-500 mb-3 flex items-center gap-2 border-b border-slate-200 pb-2">
-                            ${sStyle.icon} ${shift} <span class="bg-slate-200 text-slate-600 rounded-full px-2 py-0.5 ml-auto">${teamMembers.length}</span>
-                        </h3>
-                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                            ${teamMembers.map(p => {
-                                const statObj = getStatusToday(p);
-                                const badge = getStatusBadge(statObj);
-                                const dimClass = overrideStatuses.includes(statObj.shift) ? 'opacity-70 bg-slate-50' : 'bg-white shadow-sm hover:border-slate-300 transition-colors';
-                                const activeDot = (statObj.shift === shift && statObj.location === 'WFO') ? 'bg-green-400' : 'bg-slate-300';
-                                
+                    <article class="${style.bg} border ${style.border} ${placementClass} rounded-2xl p-5 shadow-sm">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b ${style.border} pb-3">
+                            <h2 class="flex items-center gap-2 text-lg font-bold ${style.text}">
+                                <span aria-hidden="true">${style.icon}</span>
+                                <span>${shift}</span>
+                            </h2>
+                            ${isMyShift ? `<span class="rounded-full bg-blue-600 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">${isStatusGroup ? 'Your status' : 'Your shift'}</span>` : ''}
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            ${metric(isStatusGroup ? 'Members' : 'On shift', members.length)}
+                            ${!isStatusGroup ? `
+                                ${metric('WFO', hasLocationData ? wfoCount : '—')}
+                                ${metric('WFH', hasLocationData ? wfhCount : '—')}
+                                ${metric('Pune', hasCityData ? puneCount : '—')}
+                                ${metric('Noida', hasCityData ? noidaCount : '—')}
+                                ${hasCityData && members.some(member => !member.city) ? metric('City missing', members.filter(member => !member.city).length) : ''}
+                            ` : ''}
+                        </div>
+                        <ul class="mt-4 grid ${memberGridClass} gap-2">
+                            ${sortedMembers.map(member => {
+                                const location = member.location || (/^WFO$/i.test(shift) ? 'WFO' : /^WFH$/i.test(shift) ? 'WFH' : null);
+                                const badge = getStatusBadge({ shift, location });
+                                const dotClass = location === 'WFO' ? 'bg-green-500' : location === 'WFH' ? 'bg-purple-500' : 'bg-slate-300';
+                                const cityBadge = member.city ? `<span class="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-600">${member.city}</span>` : '';
+
                                 return `
-                                <li class="${dimClass} border border-slate-200 rounded-lg px-3 py-2.5 text-sm flex items-center text-slate-700">
-                                    <div class="w-2 h-2 rounded-full ${activeDot} mr-2.5 shrink-0"></div>
-                                    <span class="truncate pr-2">${p}</span>${badge}
-                                </li>`;
+                                    <li class="flex min-w-0 items-center gap-2 rounded-lg border ${style.border} bg-white/90 px-3 py-2.5 text-sm font-medium text-slate-800 shadow-sm">
+                                        <span class="h-2 w-2 shrink-0 rounded-full ${dotClass}" aria-hidden="true"></span>
+                                        <span class="min-w-0 flex-1 truncate">${member.name}</span>
+                                        ${cityBadge}${badge}
+                                    </li>
+                                `;
                             }).join('')}
                         </ul>
-                    </div>
+                    </article>
                 `;
-            }
-            
-            html += `
-                        </div>
-                    </details>
-                </div>
-            </div>
-            `;
+            });
 
+            html += `
+                    </div>
+                </div>
+            `;
             contentDiv.innerHTML = html;
         }
 

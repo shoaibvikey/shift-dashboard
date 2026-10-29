@@ -1,0 +1,994 @@
+{
+  "2026-11-01": {
+    "6 AM - 3 PM IST": [
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Sachin Gangwar | WFH | Noida",
+      "Niyati Saran | WFH | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFO | Pune",
+      "Ashish Chourasia | WFO | Pune",
+      "Avinash Wani | WFO | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Shoaib Akhtar | WFH | Noida"
+    ],
+    "WO": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Srinaresh Yellavula | Pune",
+      "Om Raosaheb Sadaphal | Pune",
+      "Mujahid Hussain | Noida",
+      "Anmol Kumar Anil Yadav | Pune",
+      "Yash Chauhan | Noida",
+      "Rahul Satish Talele | Pune",
+      "Thushara R | Noida",
+      "Neha Rawat | Noida"
+    ]
+  },
+  "2026-11-02": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFO | Pune",
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Sachin Gangwar | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFO | Pune",
+      "Ashish Chourasia | WFO | Pune",
+      "Avinash Wani | WFO | Pune",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Neha Rawat | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Srinaresh Yellavula | Pune",
+      "Mujahid Hussain | Noida",
+      "Niyati Saran | Noida",
+      "Anmol Kumar Anil Yadav | Pune",
+      "Paras Khurana | Noida",
+      "Yash Chauhan | Noida",
+      "Samiksha Haridas Kolte | Pune",
+      "Rahul Satish Talele | Pune",
+      "Thushara R | Noida"
+    ]
+  },
+  "2026-11-03": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFH | Pune",
+      "Srinaresh Yellavula | WFH | Pune",
+      "Om Raosaheb Sadaphal | WFH | Pune",
+      "Sachin Gangwar | WFO | Noida",
+      "Mujahid Hussain | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFO | Pune",
+      "Ashish Chourasia | WFO | Pune",
+      "Avinash Wani | WFO | Pune",
+      "Ifat Makki | WFH | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Rahul Satish Talele | WFH | Pune",
+      "Thushara R | WFO | Noida",
+      "Neha Rawat | WFO | Noida"
+    ],
+    "WO": [
+      "Pratik Bhikan Wagh | Pune",
+      "Niyati Saran | Noida",
+      "Anmol Kumar Anil Yadav | Pune",
+      "Paras Khurana | Noida",
+      "Yash Chauhan | Noida",
+      "Samiksha Haridas Kolte | Pune",
+      "Shoaib Akhtar | Noida"
+    ]
+  },
+  "2026-11-04": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFH | Pune",
+      "Srinaresh Yellavula | WFH | Pune",
+      "Sachin Gangwar | WFO | Noida",
+      "Mujahid Hussain | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Ashish Chourasia | WFO | Pune",
+      "Yash Chauhan | WFO | Noida",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Samiksha Haridas Kolte | WFH | Pune",
+      "Rahul Satish Talele | WFH | Pune",
+      "Thushara R | WFO | Noida",
+      "Neha Rawat | WFO | Noida"
+    ],
+    "WO": [
+      "Pratik Bhikan Wagh | Pune",
+      "Om Raosaheb Sadaphal | Pune",
+      "Niyati Saran | Noida",
+      "Samyak Jain | Pune",
+      "Avinash Wani | Pune",
+      "Paras Khurana | Noida",
+      "Durgesh Patil | Pune",
+      "Shoaib Akhtar | Noida"
+    ]
+  },
+  "2026-11-05": {
+    "6 AM - 3 PM IST": [
+      "Srinaresh Yellavula | WFO | Pune",
+      "Sachin Gangwar | WFO | Noida",
+      "Mujahid Hussain | WFO | Noida",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Ashish Chourasia | WFO | Pune",
+      "Avinash Wani | WFO | Pune",
+      "Yash Chauhan | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Nupoor Tryambak Aher | WFH | Pune",
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Thushara R | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Pratik Bhikan Wagh | Pune",
+      "Om Raosaheb Sadaphal | Pune",
+      "Samyak Jain | Pune",
+      "Paras Khurana | Noida",
+      "Ifat Makki | Noida",
+      "Durgesh Patil | Pune",
+      "Neha Rawat | Noida"
+    ],
+    "Leave": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Rahul Satish Talele | Pune"
+    ]
+  },
+  "2026-11-06": {
+    "6 AM - 3 PM IST": [
+      "Srinaresh Yellavula | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFH | Pune",
+      "Mujahid Hussain | WFO | Noida",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFO | Pune",
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Paras Khurana | WFH | Noida",
+      "Yash Chauhan | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFH | Pune",
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Thushara R | WFO | Noida",
+      "Shoaib Akhtar | WFH | Noida"
+    ],
+    "WO": [
+      "Sachin Gangwar | Noida",
+      "Ashish Chourasia | Pune",
+      "Avinash Wani | Pune",
+      "Ifat Makki | Noida",
+      "Nupoor Tryambak Aher | Pune",
+      "Neha Rawat | Noida"
+    ],
+    "Leave": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Pratik Bhikan Wagh | Pune",
+      "Rahul Satish Talele | Pune"
+    ]
+  },
+  "2026-11-07": {
+    "6 AM - 3 PM IST": [
+      "Srinaresh Yellavula | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Mujahid Hussain | WFO | Noida",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFO | Pune",
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Yash Chauhan | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFH | Pune",
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Thushara R | WFH | Noida",
+      "Shoaib Akhtar | WFH | Noida"
+    ],
+    "WO": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Sachin Gangwar | Noida",
+      "Ashish Chourasia | Pune",
+      "Avinash Wani | Pune",
+      "Ifat Makki | Noida",
+      "Nupoor Tryambak Aher | Pune"
+    ],
+    "Leave": [
+      "Pratik Bhikan Wagh | Pune",
+      "Rahul Satish Talele | Pune",
+      "Neha Rawat | Noida"
+    ]
+  },
+  "2026-11-08": {
+    "6 AM - 3 PM IST": [
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Sachin Gangwar | WFH | Noida",
+      "Mujahid Hussain | WFH | Noida",
+      "Niyati Saran | WFH | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFH | Pune",
+      "Avinash Wani | WFH | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFH | Pune",
+      "Nupoor Tryambak Aher | WFH | Pune",
+      "Samiksha Haridas Kolte | WFH | Pune",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Srinaresh Yellavula | Pune",
+      "Yash Chauhan | Noida",
+      "Rahul Satish Talele | Pune",
+      "Thushara R | Noida"
+    ],
+    "Leave": [
+      "Pratik Bhikan Wagh | Pune",
+      "Samyak Jain | Pune",
+      "Ashish Chourasia | Pune",
+      "Neha Rawat | Noida"
+    ]
+  },
+  "2026-11-09": {
+    "6 AM - 3 PM IST": [
+      "Srinaresh Yellavula | WFH | Pune",
+      "Om Raosaheb Sadaphal | WFH | Pune",
+      "Sachin Gangwar | WFH | Noida",
+      "Niyati Saran | WFH | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFH | Pune",
+      "Paras Khurana | WFH | Noida",
+      "Yash Chauhan | WFH | Noida",
+      "Ifat Makki | WFH | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Nupoor Tryambak Aher | WFH | Pune",
+      "Samiksha Haridas Kolte | WFH | Pune",
+      "Thushara R | WFH | Noida",
+      "Shoaib Akhtar | WFH | Noida"
+    ],
+    "Holiday": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Pratik Bhikan Wagh | Pune",
+      "Mujahid Hussain | Noida",
+      "Samyak Jain | Pune",
+      "Ashish Chourasia | Pune",
+      "Avinash Wani | Pune",
+      "Durgesh Patil | Pune",
+      "Rahul Satish Talele | Pune",
+      "Neha Rawat | Noida"
+    ]
+  },
+  "2026-11-10": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFH | Pune",
+      "Srinaresh Yellavula | WFH | Pune",
+      "Om Raosaheb Sadaphal | WFH | Pune",
+      "Mujahid Hussain | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Avinash Wani | WFO | Pune",
+      "Paras Khurana | WFH | Noida",
+      "Yash Chauhan | WFH | Noida",
+      "Ifat Makki | WFH | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Thushara R | WFH | Noida",
+      "Shoaib Akhtar | WFH | Noida"
+    ],
+    "WO": [
+      "Pratik Bhikan Wagh | Pune",
+      "Niyati Saran | Noida",
+      "Anmol Kumar Anil Yadav | Pune"
+    ],
+    "Leave": [
+      "Sachin Gangwar | Noida",
+      "Samyak Jain | Pune",
+      "Ashish Chourasia | Pune",
+      "Rahul Satish Talele | Pune",
+      "Neha Rawat | Noida"
+    ]
+  },
+  "2026-11-11": {
+    "6 AM - 3 PM IST": [
+      "Srinaresh Yellavula | WFH | Pune",
+      "Om Raosaheb Sadaphal | WFH | Pune",
+      "Sachin Gangwar | WFH | Noida",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Avinash Wani | WFO | Pune",
+      "Yash Chauhan | WFH | Noida",
+      "Ifat Makki | WFH | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFH | Pune",
+      "Nupoor Tryambak Aher | WFH | Pune",
+      "Rahul Satish Talele | WFH | Pune",
+      "Thushara R | WFO | Noida"
+    ],
+    "WO": [
+      "Pratik Bhikan Wagh | Pune",
+      "Mujahid Hussain | Noida",
+      "Samyak Jain | Pune",
+      "Paras Khurana | Noida",
+      "Samiksha Haridas Kolte | Pune",
+      "Shoaib Akhtar | Noida"
+    ],
+    "Leave": [
+      "Ashish Chourasia | Pune",
+      "Neha Rawat | Noida"
+    ],
+    "FH": [
+      "Rahul Sureshrao Kamdi | Pune"
+    ]
+  },
+  "2026-11-12": {
+    "6 AM - 3 PM IST": [
+      "Pratik Bhikan Wagh | WFH | Pune",
+      "Srinaresh Yellavula | WFO | Pune",
+      "Mujahid Hussain | WFO | Noida",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Avinash Wani | WFO | Pune",
+      "Paras Khurana | WFH | Noida",
+      "Yash Chauhan | WFH | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Rahul Satish Talele | WFH | Pune",
+      "Thushara R | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Om Raosaheb Sadaphal | Pune",
+      "Samyak Jain | Pune",
+      "Ifat Makki | Noida",
+      "Durgesh Patil | Pune",
+      "Neha Rawat | Noida"
+    ],
+    "Leave": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Sachin Gangwar | Noida",
+      "Ashish Chourasia | Pune"
+    ],
+    "CO": [
+      "Nupoor Tryambak Aher | Pune"
+    ]
+  },
+  "2026-11-13": {
+    "6 AM - 3 PM IST": [
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Srinaresh Yellavula | WFO | Pune",
+      "Mujahid Hussain | WFH | Noida",
+      "Niyati Saran | WFH | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Avinash Wani | WFO | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Yash Chauhan | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFH | Pune",
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Rahul Satish Talele | WFH | Pune",
+      "Thushara R | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Om Raosaheb Sadaphal | Pune",
+      "Sachin Gangwar | Noida",
+      "Ashish Chourasia | Pune",
+      "Ifat Makki | Noida",
+      "Nupoor Tryambak Aher | Pune",
+      "Neha Rawat | Noida"
+    ],
+    "Leave": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Samyak Jain | Pune"
+    ]
+  },
+  "2026-11-14": {
+    "6 AM - 3 PM IST": [
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Srinaresh Yellavula | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Mujahid Hussain | WFH | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Paras Khurana | WFH | Noida",
+      "Yash Chauhan | WFH | Noida",
+      "Ifat Makki | WFH | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFH | Pune",
+      "Nupoor Tryambak Aher | WFH | Pune",
+      "Thushara R | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Sachin Gangwar | Noida",
+      "Niyati Saran | Noida",
+      "Ashish Chourasia | Pune",
+      "Avinash Wani | Pune",
+      "Rahul Satish Talele | Pune"
+    ],
+    "Leave": [
+      "Samyak Jain | Pune",
+      "Samiksha Haridas Kolte | Pune",
+      "Neha Rawat | Noida"
+    ]
+  },
+  "2026-11-15": {
+    "6 AM - 3 PM IST": [
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Mujahid Hussain | WFH | Noida",
+      "Niyati Saran | WFH | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFH | Pune",
+      "Anmol Kumar Anil Yadav | WFH | Pune",
+      "Ashish Chourasia | WFH | Pune",
+      "Avinash Wani | WFH | Pune"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFH | Pune",
+      "Nupoor Tryambak Aher | WFH | Pune",
+      "Samiksha Haridas Kolte | WFH | Pune",
+      "Neha Rawat | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Srinaresh Yellavula | Pune",
+      "Yash Chauhan | Noida",
+      "Rahul Satish Talele | Pune",
+      "Thushara R | Noida"
+    ],
+    "Leave": [
+      "Sachin Gangwar | Noida"
+    ],
+    "CO": [
+      "Paras Khurana | Noida",
+      "Ifat Makki | Noida"
+    ]
+  },
+  "2026-11-16": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFO | Pune",
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Avinash Wani | WFO | Pune",
+      "Paras Khurana | WFH | Noida",
+      "Yash Chauhan | WFH | Noida",
+      "Ifat Makki | WFH | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFH | Pune",
+      "Nupoor Tryambak Aher | WFH | Pune",
+      "Thushara R | WFO | Noida",
+      "Neha Rawat | WFO | Noida",
+      "Shoaib Akhtar | WFH | Noida"
+    ],
+    "WO": [
+      "Srinaresh Yellavula | Pune",
+      "Mujahid Hussain | Noida",
+      "Anmol Kumar Anil Yadav | Pune",
+      "Ashish Chourasia | Pune",
+      "Samiksha Haridas Kolte | Pune",
+      "Rahul Satish Talele | Pune"
+    ],
+    "Leave": [
+      "Sachin Gangwar | Noida",
+      "Samyak Jain | Pune"
+    ]
+  },
+  "2026-11-17": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFO | Pune",
+      "Srinaresh Yellavula | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFH | Pune",
+      "Ashish Chourasia | WFH | Pune",
+      "Avinash Wani | WFH | Pune",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Rahul Satish Talele | WFO | Pune",
+      "Thushara R | WFO | Noida",
+      "Neha Rawat | WFO | Noida"
+    ],
+    "WO": [
+      "Pratik Bhikan Wagh | Pune",
+      "Mujahid Hussain | Noida",
+      "Paras Khurana | Noida",
+      "Durgesh Patil | Pune",
+      "Samiksha Haridas Kolte | Pune",
+      "Shoaib Akhtar | Noida"
+    ],
+    "Leave": [
+      "Sachin Gangwar | Noida"
+    ],
+    "CO": [
+      "Anmol Kumar Anil Yadav | Pune",
+      "Yash Chauhan | Noida"
+    ]
+  },
+  "2026-11-18": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFO | Pune",
+      "Srinaresh Yellavula | WFH | Pune",
+      "Om Raosaheb Sadaphal | WFH | Pune",
+      "Mujahid Hussain | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFH | Pune",
+      "Avinash Wani | WFH | Pune",
+      "Yash Chauhan | WFO | Noida",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Rahul Satish Talele | WFO | Pune",
+      "Thushara R | WFH | Noida",
+      "Neha Rawat | WFH | Noida"
+    ],
+    "WO": [
+      "Pratik Bhikan Wagh | Pune",
+      "Niyati Saran | Noida",
+      "Samyak Jain | Pune",
+      "Paras Khurana | Noida",
+      "Durgesh Patil | Pune",
+      "Samiksha Haridas Kolte | Pune",
+      "Shoaib Akhtar | Noida"
+    ],
+    "Leave": [
+      "Sachin Gangwar | Noida",
+      "Ashish Chourasia | Pune"
+    ]
+  },
+  "2026-11-19": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFH | Pune",
+      "Pratik Bhikan Wagh | WFH | Pune",
+      "Srinaresh Yellavula | WFH | Pune",
+      "Mujahid Hussain | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Avinash Wani | WFO | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Yash Chauhan | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Rahul Satish Talele | WFO | Pune",
+      "Thushara R | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Om Raosaheb Sadaphal | Pune",
+      "Niyati Saran | Noida",
+      "Samyak Jain | Pune",
+      "Ifat Makki | Noida",
+      "Durgesh Patil | Pune",
+      "Neha Rawat | Noida"
+    ],
+    "Leave": [
+      "Ashish Chourasia | Pune",
+      "Samiksha Haridas Kolte | Pune"
+    ],
+    "CO": [
+      "Sachin Gangwar | Noida"
+    ]
+  },
+  "2026-11-20": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFH | Pune",
+      "Pratik Bhikan Wagh | WFH | Pune",
+      "Srinaresh Yellavula | WFH | Pune",
+      "Mujahid Hussain | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Avinash Wani | WFO | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Yash Chauhan | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Samiksha Haridas Kolte | WFH | Pune",
+      "Rahul Satish Talele | WFH | Pune",
+      "Thushara R | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Om Raosaheb Sadaphal | Pune",
+      "Sachin Gangwar | Noida",
+      "Ashish Chourasia | Pune",
+      "Ifat Makki | Noida",
+      "Nupoor Tryambak Aher | Pune",
+      "Neha Rawat | Noida"
+    ],
+    "Leave": [
+      "Samyak Jain | Pune"
+    ],
+    "CO": [
+      "Niyati Saran | Noida"
+    ]
+  },
+  "2026-11-21": {
+    "6 AM - 3 PM IST": [
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Srinaresh Yellavula | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Mujahid Hussain | WFH | Noida",
+      "Niyati Saran | WFH | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Paras Khurana | WFH | Noida",
+      "Yash Chauhan | WFH | Noida",
+      "Ifat Makki | WFH | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Rahul Satish Talele | WFO | Pune",
+      "Neha Rawat | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Sachin Gangwar | Noida",
+      "Ashish Chourasia | Pune",
+      "Avinash Wani | Pune",
+      "Nupoor Tryambak Aher | Pune",
+      "Thushara R | Noida"
+    ],
+    "Leave": [
+      "Samyak Jain | Pune",
+      "Samiksha Haridas Kolte | Pune"
+    ]
+  },
+  "2026-11-22": {
+    "6 AM - 3 PM IST": [
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Mujahid Hussain | WFH | Noida",
+      "Niyati Saran | WFH | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFH | Pune",
+      "Avinash Wani | WFH | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Neha Rawat | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Srinaresh Yellavula | Pune",
+      "Sachin Gangwar | Noida",
+      "Samyak Jain | Pune",
+      "Yash Chauhan | Noida",
+      "Rahul Satish Talele | Pune",
+      "Thushara R | Noida"
+    ],
+    "Leave": [
+      "Ashish Chourasia | Pune"
+    ],
+    "CO": [
+      "Samiksha Haridas Kolte | Pune"
+    ]
+  },
+  "2026-11-23": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFO | Pune",
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Sachin Gangwar | WFO | Noida",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFH | Pune",
+      "Ashish Chourasia | WFH | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Neha Rawat | WFO | Noida",
+      "Shoaib Akhtar | WFO | Noida"
+    ],
+    "WO": [
+      "Srinaresh Yellavula | Pune",
+      "Mujahid Hussain | Noida",
+      "Anmol Kumar Anil Yadav | Pune",
+      "Avinash Wani | Pune",
+      "Yash Chauhan | Noida",
+      "Samiksha Haridas Kolte | Pune",
+      "Rahul Satish Talele | Pune",
+      "Thushara R | Noida"
+    ]
+  },
+  "2026-11-24": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFO | Pune",
+      "Srinaresh Yellavula | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Sachin Gangwar | WFO | Noida",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFH | Pune",
+      "Anmol Kumar Anil Yadav | WFH | Pune",
+      "Ashish Chourasia | WFH | Pune",
+      "Avinash Wani | WFH | Pune",
+      "Yash Chauhan | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Rahul Satish Talele | WFO | Pune",
+      "Thushara R | WFH | Noida",
+      "Neha Rawat | WFH | Noida"
+    ],
+    "WO": [
+      "Pratik Bhikan Wagh | Pune",
+      "Mujahid Hussain | Noida",
+      "Paras Khurana | Noida",
+      "Nupoor Tryambak Aher | Pune",
+      "Samiksha Haridas Kolte | Pune",
+      "Shoaib Akhtar | Noida"
+    ],
+    "FH": [
+      "Ifat Makki | Noida"
+    ]
+  },
+  "2026-11-25": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFO | Pune",
+      "Srinaresh Yellavula | WFO | Pune",
+      "Om Raosaheb Sadaphal | WFO | Pune",
+      "Sachin Gangwar | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFH | Pune",
+      "Avinash Wani | WFH | Pune",
+      "Yash Chauhan | WFO | Noida",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Samiksha Haridas Kolte | WFH | Pune",
+      "Rahul Satish Talele | WFO | Pune",
+      "Neha Rawat | WFH | Noida"
+    ],
+    "WO": [
+      "Pratik Bhikan Wagh | Pune",
+      "Mujahid Hussain | Noida",
+      "Niyati Saran | Noida",
+      "Samyak Jain | Pune",
+      "Paras Khurana | Noida",
+      "Durgesh Patil | Pune",
+      "Shoaib Akhtar | Noida"
+    ],
+    "Leave": [
+      "Ashish Chourasia | Pune"
+    ],
+    "CO": [
+      "Thushara R | Noida"
+    ]
+  },
+  "2026-11-26": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFO | Pune",
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Srinaresh Yellavula | WFO | Pune",
+      "Sachin Gangwar | WFH | Noida",
+      "Mujahid Hussain | WFH | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFH | Pune",
+      "Avinash Wani | WFO | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Yash Chauhan | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Nupoor Tryambak Aher | WFH | Pune",
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Rahul Satish Talele | WFO | Pune",
+      "Thushara R | WFH | Noida",
+      "Shoaib Akhtar | WFH | Noida"
+    ],
+    "WO": [
+      "Om Raosaheb Sadaphal | Pune",
+      "Niyati Saran | Noida",
+      "Samyak Jain | Pune",
+      "Ashish Chourasia | Pune",
+      "Ifat Makki | Noida",
+      "Durgesh Patil | Pune",
+      "Neha Rawat | Noida"
+    ]
+  },
+  "2026-11-27": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFO | Pune",
+      "Pratik Bhikan Wagh | WFO | Pune",
+      "Srinaresh Yellavula | WFO | Pune",
+      "Mujahid Hussain | WFH | Noida",
+      "Niyati Saran | WFH | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Anmol Kumar Anil Yadav | WFO | Pune",
+      "Avinash Wani | WFH | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Yash Chauhan | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Rahul Satish Talele | WFO | Pune",
+      "Thushara R | WFH | Noida"
+    ],
+    "WO": [
+      "Om Raosaheb Sadaphal | Pune",
+      "Sachin Gangwar | Noida",
+      "Ashish Chourasia | Pune",
+      "Ifat Makki | Noida",
+      "Nupoor Tryambak Aher | Pune",
+      "Neha Rawat | Noida",
+      "Shoaib Akhtar | Noida"
+    ],
+    "Leave": [
+      "Samyak Jain | Pune"
+    ]
+  },
+  "2026-11-28": {
+    "6 AM - 3 PM IST": [
+      "Pratik Bhikan Wagh | WFH | Pune",
+      "Om Raosaheb Sadaphal | WFH | Pune",
+      "Mujahid Hussain | WFO | Noida",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Ashish Chourasia | WFO | Pune",
+      "Paras Khurana | WFH | Noida",
+      "Yash Chauhan | WFH | Noida",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Rahul Satish Talele | WFO | Pune",
+      "Neha Rawat | WFH | Noida"
+    ],
+    "WO": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Sachin Gangwar | Noida",
+      "Anmol Kumar Anil Yadav | Pune",
+      "Avinash Wani | Pune",
+      "Nupoor Tryambak Aher | Pune",
+      "Thushara R | Noida"
+    ],
+    "Leave": [
+      "Samyak Jain | Pune"
+    ],
+    "CO": [
+      "Srinaresh Yellavula | Pune",
+      "Shoaib Akhtar | Noida"
+    ]
+  },
+  "2026-11-29": {
+    "6 AM - 3 PM IST": [
+      "Pratik Bhikan Wagh | WFH | Pune",
+      "Om Raosaheb Sadaphal | WFH | Pune",
+      "Sachin Gangwar | WFO | Noida",
+      "Mujahid Hussain | WFO | Noida",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFO | Pune",
+      "Ashish Chourasia | WFO | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Durgesh Patil | WFO | Pune",
+      "Samiksha Haridas Kolte | WFO | Pune",
+      "Neha Rawat | WFH | Noida",
+      "Shoaib Akhtar | WFH | Noida"
+    ],
+    "WO": [
+      "Rahul Sureshrao Kamdi | Pune",
+      "Srinaresh Yellavula | Pune",
+      "Anmol Kumar Anil Yadav | Pune",
+      "Avinash Wani | Pune",
+      "Yash Chauhan | Noida",
+      "Nupoor Tryambak Aher | Pune",
+      "Rahul Satish Talele | Pune",
+      "Thushara R | Noida"
+    ]
+  },
+  "2026-11-30": {
+    "6 AM - 3 PM IST": [
+      "Rahul Sureshrao Kamdi | WFH | Pune",
+      "Pratik Bhikan Wagh | WFH | Pune",
+      "Sachin Gangwar | WFO | Noida",
+      "Niyati Saran | WFO | Noida"
+    ],
+    "2 PM - 11 PM IST": [
+      "Samyak Jain | WFO | Pune",
+      "Ashish Chourasia | WFO | Pune",
+      "Paras Khurana | WFO | Noida",
+      "Ifat Makki | WFO | Noida"
+    ],
+    "10 PM - 7 AM IST": [
+      "Nupoor Tryambak Aher | WFO | Pune",
+      "Rahul Satish Talele | WFO | Pune",
+      "Thushara R | WFH | Noida",
+      "Neha Rawat | WFH | Noida"
+    ],
+    "WO": [
+      "Srinaresh Yellavula | Pune",
+      "Mujahid Hussain | Noida",
+      "Anmol Kumar Anil Yadav | Pune",
+      "Avinash Wani | Pune",
+      "Yash Chauhan | Noida",
+      "Durgesh Patil | Pune",
+      "Samiksha Haridas Kolte | Pune",
+      "Shoaib Akhtar | Noida"
+    ],
+    "CO": [
+      "Om Raosaheb Sadaphal | Pune"
+    ]
+  }
+}
