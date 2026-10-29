@@ -134,6 +134,20 @@
             box-shadow: var(--md-elevation-1);
         }
         #theme-toggle { width: 48px; height: 48px; border-radius: 16px; }
+        .mobile-header-control-row {
+            display: grid;
+            width: 100%;
+            grid-template-columns: max-content minmax(0, 1fr) 48px;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .mobile-header-control-row #date-picker-container,
+        .mobile-header-control-row #month-picker-container { min-width: 0; width: 100%; }
+        .mobile-header-control-row #date-picker,
+        .mobile-header-control-row #month-picker { min-width: 0; width: 100%; padding-inline: 0.5rem; font-size: 0.8rem; }
+        @media (min-width: 640px) {
+            .mobile-header-control-row { display: contents; }
+        }
         #user-select:focus,
         #date-picker:focus,
         #month-picker:focus,
@@ -198,30 +212,32 @@
                     </div>
                 </div>
 
-                <!-- View Toggles -->
-                <div class="bg-slate-200 p-1 rounded-lg inline-flex self-center sm:self-auto shrink-0">
-                    <button id="btn-daily" onclick="setView('daily')" class="px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all">Daily</button>
-                    <button id="btn-monthly" onclick="setView('monthly')" class="px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all">Monthly</button>
-                </div>
-                
-                <!-- Date Picker (Daily View) -->
-                <div class="relative flex items-center w-full sm:w-auto" id="date-picker-container">
-                    <label for="date-picker" class="sr-only">Select Date</label>
-                    <input type="date" id="date-picker" 
-                        class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-medium">
-                </div>
+                <div class="mobile-header-control-row">
+                    <!-- View Toggles -->
+                    <div class="bg-slate-200 p-1 rounded-lg inline-flex self-center sm:self-auto shrink-0">
+                        <button id="btn-daily" onclick="setView('daily')" class="px-4 py-1.5 rounded-md text-sm font-semibold shadow bg-white text-slate-800 transition-all">Daily</button>
+                        <button id="btn-monthly" onclick="setView('monthly')" class="px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-slate-700 transition-all">Monthly</button>
+                    </div>
 
-                <!-- Month Picker (Monthly View) -->
-                <div class="relative flex items-center w-full sm:w-auto" id="month-picker-container" style="display: none;">
-                    <label for="month-picker" class="sr-only">Select Month</label>
-                    <input type="month" id="month-picker" 
-                        class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-medium">
-                </div>
+                    <!-- Date Picker (Daily View) -->
+                    <div class="relative flex items-center w-full sm:w-auto" id="date-picker-container">
+                        <label for="date-picker" class="sr-only">Select Date</label>
+                        <input type="date" id="date-picker"
+                            class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-medium">
+                    </div>
 
-                <button id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode"
-                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white p-2 text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50">
-                    <span id="theme-toggle-icon" aria-hidden="true">🌙</span>
-                </button>
+                    <!-- Month Picker (Monthly View) -->
+                    <div class="relative flex items-center w-full sm:w-auto" id="month-picker-container" style="display: none;">
+                        <label for="month-picker" class="sr-only">Select Month</label>
+                        <input type="month" id="month-picker"
+                            class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 shadow-sm transition-all duration-200 cursor-pointer hover:border-slate-400 font-medium">
+                    </div>
+
+                    <button id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode"
+                        class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white p-2 text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50">
+                        <span id="theme-toggle-icon" aria-hidden="true">🌙</span>
+                    </button>
+                </div>
             </div>
         </header>
 
